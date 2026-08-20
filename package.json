@@ -26,8 +26,8 @@
   "scripts": {
     "prepare": "husky",
     "dev": "vite dev --host",
-    "build": "vite build && npm run package",
     "build:wc": "vite build --config vite.config.wc.ts",
+    "build": "vite build && npm run build:wc && npm run package",
     "preview": "vite preview",
     "package": "svelte-kit sync && svelte-package && publint",
     "prepublishOnly": "npm run build:wc && npm run package",

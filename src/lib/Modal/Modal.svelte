@@ -221,6 +221,7 @@
 
   .slot-content {
     display: var(--modal-display, flex);
+    flex-direction: var(--modal-flex-direction, row);
     overflow-y: var(--modal-overflow-y, scroll);
     scrollbar-width: var(--modal-scrollbar-width, none);
   }

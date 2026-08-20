@@ -26,6 +26,7 @@
     closeIcon,
     editIcon,
     deleteIcon,
+    itemFooter,
     testId,
     onimageclick,
     oneditclick,
@@ -47,6 +48,7 @@
   let hasPrevious = $derived(loop ? images.length > 1 : activeIndex > 0);
   let hasNext = $derived(loop ? images.length > 1 : activeIndex < images.length - 1);
   let itemsAreInteractive = $derived(enableLightbox || typeof onimageclick === 'function');
+  let hasItemFooter = $derived(view === 'grid' && typeof itemFooter === 'function');
   let showEditButton = $derived(typeof oneditclick === 'function');
   let showDeleteButton = $derived(typeof ondeleteclick === 'function');
   let showItemActions = $derived(showEditButton || showDeleteButton);
@@ -181,19 +183,32 @@
   {/if}
 {/snippet}
 
-{#snippet itemContent(image: GalleryImage)}
-  <Img src={image.thumbnail ?? image.src} alt={image.alt} fallback={image.fallback} />
-  {#if view === 'list'}
-    <span class="list-text">
-      <span class="list-title">{image.alt}</span>
-      {#if typeof image.caption === 'string' && image.caption.length > 0}
-        <span class="list-caption">{image.caption}</span>
-      {/if}
+{#snippet itemContent(image: GalleryImage, index: number)}
+  {#if hasItemFooter}
+    <span class="grid-image-wrap">
+      <Img src={image.thumbnail ?? image.src} alt={image.alt} fallback={image.fallback} />
     </span>
+    {#if typeof itemFooter === 'function'}
+      {@render itemFooter(image, index)}
+    {/if}
+  {:else}
+    <Img src={image.thumbnail ?? image.src} alt={image.alt} fallback={image.fallback} />
+    {#if view === 'list'}
+      <span class="list-text">
+        <span class="list-title">{image.alt}</span>
+        {#if typeof image.caption === 'string' && image.caption.length > 0}
+          <span class="list-caption">{image.caption}</span>
+        {/if}
+      </span>
+    {/if}
   {/if}
 {/snippet}
 
-<div class="gallery {view} {classes ?? ''}" data-pw={testId} role="list">
+<div
+  class="gallery {view} {hasItemFooter ? 'has-item-footer' : ''} {classes ?? ''}"
+  data-pw={testId}
+  role="list"
+>
   {#each images as image, index (index)}
     <div class="gallery-item" role="listitem">
       {#if itemsAreInteractive}
@@ -204,11 +219,11 @@
             ? `View image ${index + 1} of ${images.length}: ${image.alt}`
             : image.alt}
         >
-          {@render itemContent(image)}
+          {@render itemContent(image, index)}
         </button>
       {:else}
         <div class="gallery-item-content">
-          {@render itemContent(image)}
+          {@render itemContent(image, index)}
         </div>
       {/if}
       {#if showItemActions}
@@ -297,7 +312,10 @@
 
   .gallery.grid {
     display: grid;
-    grid-template-columns: repeat(var(--gallery-columns, 3), 1fr);
+    grid-template-columns: var(
+      --gallery-grid-template-columns,
+      repeat(var(--gallery-columns, 3), 1fr)
+    );
     gap: var(--gallery-gap, 8px);
   }
 
@@ -320,6 +338,12 @@
     --image-object-fit: var(--gallery-item-image-fit, cover);
     --image-border-radius: var(--gallery-item-border-radius, 0px);
     --image-transition: var(--gallery-item-image-transition);
+  }
+
+  .grid.has-item-footer .gallery-item {
+    aspect-ratio: auto;
+    overflow: visible;
+    border-radius: 0px;
   }
 
   .list .gallery-item {
@@ -353,6 +377,25 @@
     height: 100%;
     padding: 0;
     border-radius: var(--gallery-item-border-radius, 0px);
+  }
+
+  .grid.has-item-footer .gallery-item-content {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    border-radius: var(--gallery-item-border-radius, 0px);
+    overflow: hidden;
+  }
+
+  .grid-image-wrap {
+    display: block;
+    aspect-ratio: var(--gallery-item-aspect-ratio, 1);
+    overflow: hidden;
+    --image-width: 100%;
+    --image-height: 100%;
+    --image-object-fit: var(--gallery-item-image-fit, cover);
+    --image-border-radius: 0px;
+    --image-transition: var(--gallery-item-image-transition);
   }
 
   .list .gallery-item-content {

@@ -31,6 +31,7 @@ export type OptionalGalleryProperties = {
   closeIcon?: Snippet;
   editIcon?: Snippet;
   deleteIcon?: Snippet;
+  itemFooter?: Snippet<[GalleryImage, number]>;
   testId?: string;
   classes?: string;
 };
