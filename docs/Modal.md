@@ -69,6 +69,7 @@ Override these custom properties to theme the component.
 | `--modal-content-overflow`                               | `auto`             | overflow                        | Overflow behavior of the modal content panel.                      |
 | `--modal-content-border-top`                             | `-`                | border-top                      | Top border of the modal content panel.                             |
 | `--modal-display`                                        | `flex`             | display                         | Display property of the scrollable content area.                   |
+| `--modal-flex-direction`                                 | `row`              | flex-direction                  | Flex direction of the scrollable content area (when `--modal-display` is `flex`). |
 | `--modal-overflow-y`                                     | `scroll`           | overflow-y                      | Vertical overflow behavior of the content area.                    |
 | `--modal-scrollbar-width`                                | `none`             | scrollbar-width                 | Scrollbar width for the content area (set 'none' to hide).         |
 | `--modal-center-justify-content`                         | `center`           | justify-content                 | Vertical positioning of the modal when align='center'.             |

@@ -16,6 +16,7 @@
       closeIcon: { type: 'Object' },
       editIcon: { type: 'Object' },
       deleteIcon: { type: 'Object' },
+      itemFooter: { type: 'Object' },
       testId: { type: 'String', attribute: 'test-id' },
       classes: { type: 'String' },
       onimageclick: { type: 'Object' },
