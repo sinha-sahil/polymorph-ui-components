@@ -23,6 +23,7 @@
 | 13 | Color Picker | :white_check_mark: | Color input with swatch preview and optional value display |
 | 14 | Split Input | :white_check_mark: | Segmented single-character input for codes and OTP entry |
 | 15 | Feedback | :x: | Inline feedback collector with text input and emotion selector |
+| 58 | Number Stepper | :white_check_mark: | − value + control for quantities, with async-aware loading (`NumberStepper`) |
 
 ---
 
@@ -128,8 +129,8 @@
 
 | Metric | Count |
 | --- | --- |
-| **Total Components** | 57 |
-| **Available** | 45 |
+| **Total Components** | 58 |
+| **Available** | 46 |
 | **To Build** | 12 |
 
 ---

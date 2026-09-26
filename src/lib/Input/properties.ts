@@ -28,6 +28,8 @@ export type OptionalInputProperties = {
   useTextArea?: boolean;
   autoComplete?: HTMLInputAttributes['autocomplete'];
   name?: string;
+  id?: string;
+  ariaLabel?: string;
   textTransformers?: TextTransformer[];
   textViewPresentation?: TextTransformer[];
   testId?: string;

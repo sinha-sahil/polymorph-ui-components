@@ -224,6 +224,7 @@ Now you can ask: _"Using the polymorph-ui MCP, theme the Select to match my bran
 | **SplitInput**  | Segmented input (OTP / PIN) with paste distribution and auto-advance.                                                | [docs](docs/SplitInput.md)  |
 | **ColorPicker** | HSV color picker with pointer-drag saturation panel and hue slider.                                                  | [docs](docs/ColorPicker.md) |
 | **Calendar**    | Date / range picker with roving-tabindex grid and `Intl` formatting.                                                 | [docs](docs/Calendar.md)    |
+| **NumberStepper** | − value + control for quantities; shows a loader while an async `onchange` settles.                                | [docs](docs/NumberStepper.md) |
 
 </details>
 
@@ -233,7 +234,7 @@ Now you can ask: _"Using the polymorph-ui MCP, theme the Select to match my bran
 | Component                                 | Description                                                                                           |                                |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------ |
 | **Modal**                                 | Dialog overlay with size/alignment, header, footer, transitions, scroll-lock, and back-press support. | [docs](docs/Modal.md)          |
-| **Sheet**                                 | Slide-in panel from any edge with header, scrollable body, footer, and focus trap.                    | [docs](docs/Sheet.md)          |
+| **Sheet**                                 | Slide-in panel from any edge with header, scrollable body, footer, focus trap and focus return.       | [docs](docs/Sheet.md)          |
 | **Menu**                                  | Dropdown action menu with keyboard navigation, typeahead, disabled/danger items, and separators.      | [docs](docs/Menu.md)           |
 | **ContextMenu**                           | Right-click menu with separators, disabled/danger items, and keyboard navigation.                     | [docs](docs/ContextMenu.md)    |
 | **CommandMenu**                           | Command palette (Ctrl/Cmd+K) with search, grouped commands, and keyboard navigation.                  | [docs](docs/CommandMenu.md)    |
@@ -268,7 +269,7 @@ Now you can ask: _"Using the polymorph-ui MCP, theme the Select to match my bran
 | **Pagination**         | Windowed page navigation with ellipsis truncation.                   | [docs](docs/Pagination.md)    |
 | **Stepper** / **Step** | Multi-step progress indicator with completed/active/pending states.  | [docs](docs/Stepper.md)       |
 | **Accordion**          | Collapsible container with CSS grid animation.                       | [docs](docs/Accordion.md)     |
-| **Carousel**           | Swipeable content slider with autoplay and pagination dots.          | [docs](docs/Carousel.md)      |
+| **Carousel**           | Swipeable slider with snippet or component slides, arrows, dots, seamless looping and autoplay that pauses on hover/focus. | [docs](docs/Carousel.md)      |
 | **Scroller**           | Overflowing list with arrow nav, gradient edges, and drag-to-scroll. | [docs](docs/Scroller.md)      |
 | **CheckListItem**      | Checklist row with checkbox, label, and checked state.               | [docs](docs/CheckListItem.md) |
 | **Toolbar**            | Header bar with back button, title, and customizable content areas.  | [docs](docs/Toolbar.md)       |
@@ -283,7 +284,7 @@ Now you can ask: _"Using the polymorph-ui MCP, theme the Select to match my bran
 | ------------------------------------------ | ----------------------------------------------------------------------- | ------------------------ |
 | **Toast**                                  | Animated slide-in notification with auto-dismiss and per-direction fly. | [docs](docs/Toast.md)    |
 | **Banner**                                 | Notification banner with icon snippet, link text, and dismiss.          | [docs](docs/Banner.md)   |
-| **Progress**                               | Animated horizontal progress bar (determinate / indeterminate).         | [docs](docs/Progress.md) |
+| **Progress**                               | Animated progress bar (determinate / indeterminate) with optional milestones. | [docs](docs/Progress.md) |
 | **Gauge**                                  | Full-circle ring gauge (0–100) with animated SVG arc.                   | [docs](docs/Gauge.md)    |
 | **Loader** / **LoadingDots** / **Shimmer** | Spinner, animated dots, and skeleton shimmer — all CSS-variable themed. | [docs](docs/Loader.md)   |
 

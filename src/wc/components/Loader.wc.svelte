@@ -3,6 +3,7 @@
     tag: 'pui-loader',
     shadow: 'open',
     props: {
+      label: { type: 'String', reflect: true },
       testId: { type: 'String', attribute: 'test-id' },
       classes: { type: 'String' }
     }

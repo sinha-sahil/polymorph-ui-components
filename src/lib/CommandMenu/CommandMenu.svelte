@@ -4,6 +4,7 @@
   import { SvelteMap } from 'svelte/reactivity';
   import Img from '$lib/Img/Img.svelte';
   import searchSvg from '$lib/assets/search.svg?raw';
+  import { lockDocumentScroll } from '$lib/utils';
 
   let {
     items,
@@ -162,7 +163,7 @@
   }
 
   function scrollLockAction(_node: HTMLElement) {
-    document.body.style.overflow = 'hidden';
+    const unlockScroll = lockDocumentScroll();
     tick().then(() => {
       if (inputElement !== null) {
         inputElement.focus();
@@ -170,7 +171,7 @@
     });
     return {
       destroy() {
-        document.body.style.overflow = '';
+        unlockScroll();
       }
     };
   }
@@ -181,7 +182,6 @@
 
   onDestroy(() => {
     if (typeof window !== 'undefined') {
-      document.body.style.overflow = '';
       window.removeEventListener('keydown', handleGlobalKeyDown);
     }
   });

@@ -33,7 +33,7 @@
   },
   {
     "name": "Carousel",
-    "description": "An auto-playing slideshow that renders Svelte components as slides. Supports touch swipe and mouse drag for navigation. Shows optional dot indicators below the slides for direct navigation."
+    "description": "A slideshow whose slides come from a `slide` snippet (with `count`) or from Svelte component `views`. Works at any width, including percentages. Optional previous/next arrows, dot indicators, touch swipe and mouse drag. `isScrollableLast` wraps; `loop` wraps seamlessly. Autoplay pauses on hover and focus; slides change without animating under reduced motion; `announce` controls whether slide changes are read out."
   },
   {
     "name": "Chat",
@@ -141,7 +141,7 @@
   },
   {
     "name": "Loader",
-    "description": "A rotating circular spinner with a gradient foreground that transitions from `--loader-foreground` to `--loader-foreground-end`. The center is cut out to create a ring/donut shape. Spins continuously with a 1.4s linear animation."
+    "description": "A rotating circular spinner with a gradient foreground that transitions from `--loader-foreground` to `--loader-foreground-end`. The center is cut out to create a ring/donut shape. Spins continuously (`--loader-duration`, 1.4s by default). Pass `label` to make it a `role=status` region that announces what is loading."
   },
   {
     "name": "LoadingDots",
@@ -168,6 +168,10 @@
     "description": "A wrapper that applies fly or fade Svelte transitions to its children based on the modal's `align` prop. For top alignment, content flies in from above; for bottom, from below; for center, a fade transition is used."
   },
   {
+    "name": "NumberStepper",
+    "description": "A compact − value + control for stepping a number such as a cart quantity. Controlled: `onchange` receives the requested value and the parent updates `value`. When `onchange` returns a Promise, a loader shows and presses are ignored until it settles, while focus stays on the buttons. Icon snippets receive the value, so decrement can become a trash icon at the last step."
+  },
+  {
     "name": "OverlayAnimation",
     "description": "A wrapper that applies a fade-out transition (350ms) to its children when they are removed from the DOM. Used internally by Modal to animate the overlay background."
   },
@@ -181,11 +185,11 @@
   },
   {
     "name": "Pill",
-    "description": "A compact label/tag element for displaying status, categories, or metadata. Supports an optional icon snippet and click interaction with keyboard accessibility (role=button, Enter/Space). Optionally clickable when onclick is provided."
+    "description": "A compact label/tag element for displaying status, categories, or metadata. Supports an optional icon snippet and click interaction with keyboard accessibility (role=button, Enter/Space). Optionally clickable when onclick is provided. When dismissible, `dismissLabel` names the dismiss button (e.g. `Remove SAVE10`)."
   },
   {
     "name": "Progress",
-    "description": "A horizontal progress bar that fills from left to right based on `value` relative to `max`, with an animated width transition. Supports an optional percentage label and an indeterminate sweeping animation when `value` is negative. Styling is configurable via CSS variables."
+    "description": "A horizontal progress bar (`role=progressbar`) that fills based on `value` relative to `max`, with an animated width transition. Supports a percentage label, an indeterminate animation when `value` is negative, and `milestones` — markers placed along the track at their own values with optional labels and a `milestone` snippet that knows whether each one is reached."
   },
   {
     "name": "Radio",
@@ -209,7 +213,7 @@
   },
   {
     "name": "Sheet",
-    "description": "A panel that slides in from any edge of the screen (left, right, top, or bottom). Includes a structured layout with header, scrollable content, and optional footer. Body scroll locks while open, focus is trapped, and Escape key dismisses. The open prop is bindable."
+    "description": "A panel that slides in from any edge of the screen by its full size. Includes a header (h2 title and close button with a `closeIcon` snippet and `closeLabel`), scrollable content, and optional footer. Page scroll locks while open; focus is trapped across slots and shadow roots and returned on close; Escape dismisses; motion is skipped for reduced-motion users. The open prop is bindable."
   },
   {
     "name": "Shimmer",

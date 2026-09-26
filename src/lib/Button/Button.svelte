@@ -110,9 +110,9 @@
     cursor: var(--button-disabled-cursor, not-allowed);
     opacity: var(--button-disabled-opacity, 0.4);
     color: var(--button-disabled-text-color, var(--button-text-color, #ffffff));
-    font-size: var(--button-disabled-font-size);
-    font-weight: var(--button-disabled-font-weight);
-    border: var(--button-disabled-border);
+    font-size: var(--button-disabled-font-size, var(--button-font-size, 14px));
+    font-weight: var(--button-disabled-font-weight, var(--button-font-weight, 500));
+    border: var(--button-disabled-border, var(--button-border, none));
     background: var(--button-disabled-background-color, var(--button-color, #18181b));
     text-decoration: var(--button-disabled-text-decoration, var(--button-text-decoration, none));
   }
@@ -131,7 +131,7 @@
     display: var(--button-text-display);
   }
 
-  button:hover {
+  button:hover:not(:disabled) {
     background: var(--button-hover-color, var(--button-color, #18181b));
     color: var(--button-hover-text-color, var(--button-text-color, #ffffff));
     border: var(--button-hover-border, var(--button-border, none));
@@ -139,7 +139,7 @@
     opacity: var(--button-hover-opacity, var(--button-opacity, 1));
   }
 
-  button:active {
+  button:active:not(:disabled) {
     transform: var(--button-active-transform);
   }
 

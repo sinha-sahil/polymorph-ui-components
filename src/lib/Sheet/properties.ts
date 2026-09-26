@@ -16,8 +16,10 @@ export type OptionalSheetProperties = {
   title?: string;
   showOverlay?: boolean;
   showCloseButton?: boolean;
+  closeLabel?: string;
   testId?: string;
   footer?: Snippet;
+  closeIcon?: Snippet;
   classes?: string;
 };
 

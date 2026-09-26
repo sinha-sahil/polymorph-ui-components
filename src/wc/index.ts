@@ -62,3 +62,4 @@ import './components/Resizable.wc.svelte';
 import './components/Draggable.wc.svelte';
 import './components/ChatBubble.wc.svelte';
 import './components/Gallery.wc.svelte';
+import './components/NumberStepper.wc.svelte';

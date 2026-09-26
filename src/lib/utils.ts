@@ -325,3 +325,127 @@ export function createDebouncer(delay: number) {
     }
   };
 }
+
+// ── Focus & scrolling ───────────────────────────────────────────
+
+/**
+ * @description The focused element in the same document or shadow root as `node`.
+ * `document.activeElement` stops at the shadow host, so focus checks inside web components need this.
+ */
+export function activeElementOf(node: Node): Element | null {
+  const root = node.getRootNode();
+  if (root instanceof Document || root instanceof ShadowRoot) {
+    return root.activeElement;
+  }
+  return null;
+}
+
+/**
+ * @description The focused element, following open shadow roots down to the innermost one.
+ */
+export function deepActiveElement(): Element | null {
+  let active = document.activeElement;
+  while (
+    active !== null &&
+    active.shadowRoot !== null &&
+    active.shadowRoot.activeElement !== null
+  ) {
+    active = active.shadowRoot.activeElement;
+  }
+  return active;
+}
+
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+function isRendered(element: HTMLElement): boolean {
+  return typeof element.checkVisibility !== 'function' || element.checkVisibility();
+}
+
+/**
+ * @description Focusable elements inside `container`, in document order across the composed tree:
+ * content assigned to slots and open shadow roots are included, inert, hidden and undisplayed elements are not.
+ */
+export function focusableElements(container: Element): HTMLElement[] {
+  const found: HTMLElement[] = [];
+  const visit = (element: Element): void => {
+    if (element.hasAttribute('inert') || element.hasAttribute('hidden')) {
+      return;
+    }
+    if (element instanceof HTMLSlotElement) {
+      const assigned = element.assignedElements({ flatten: true });
+      (assigned.length > 0 ? assigned : Array.from(element.children)).forEach(visit);
+      return;
+    }
+    if (
+      element instanceof HTMLElement &&
+      element.matches(FOCUSABLE_SELECTOR) &&
+      isRendered(element)
+    ) {
+      found.push(element);
+    }
+    Array.from((element.shadowRoot ?? element).children).forEach(visit);
+  };
+  Array.from(container.children).forEach(visit);
+  return found;
+}
+
+let scrollLocks = 0;
+let releaseDocumentScroll: (() => void) | null = null;
+
+function lockOverflow(element: HTMLElement): () => void {
+  const { style } = element;
+  const saved = ['overflow-x', 'overflow-y'].map((property) => ({
+    property,
+    value: style.getPropertyValue(property),
+    priority: style.getPropertyPriority(property)
+  }));
+  saved.forEach(({ property }) => style.setProperty(property, 'hidden', 'important'));
+  return () => {
+    saved.forEach(({ property, value, priority }) => {
+      if (value === '') {
+        style.removeProperty(property);
+      } else {
+        style.setProperty(property, value, priority);
+      }
+    });
+  };
+}
+
+/**
+ * @description The element whose overflow scrolls the page: `<body>` unless the page gives `<html>` an overflow.
+ * Hiding overflow on the other one would turn it into a scroll container and unstick sticky headers.
+ */
+function viewportOverflowElement(): HTMLElement {
+  const root = document.documentElement;
+  const { overflowX, overflowY } = getComputedStyle(root);
+  const rootIsVisible = [overflowX, overflowY].every(
+    (value) => value === 'visible' || value === ''
+  );
+  return rootIsVisible ? document.body : root;
+}
+
+/**
+ * @description Stops the page behind an overlay from scrolling and returns the release function.
+ * Locks are counted, so closing a nested overlay keeps the page locked until the last one closes,
+ * and releasing restores whatever inline overflow the page had before.
+ */
+export function lockDocumentScroll(): () => void {
+  if (scrollLocks === 0) {
+    releaseDocumentScroll = lockOverflow(viewportOverflowElement());
+  }
+  scrollLocks += 1;
+
+  let released = false;
+  return () => {
+    if (released) {
+      return;
+    }
+    released = true;
+    scrollLocks -= 1;
+    if (scrollLocks === 0) {
+      releaseDocumentScroll?.();
+      releaseDocumentScroll = null;
+    }
+  };
+}

@@ -6,6 +6,7 @@
   let {
     text,
     dismissible = false,
+    dismissLabel = 'Dismiss',
     disabled = false,
     testId,
     dismissIcon,
@@ -58,7 +59,7 @@
       <Button
         {disabled}
         onclick={handleDismiss}
-        ariaLabel="Dismiss"
+        ariaLabel={dismissLabel}
         {...typeof testId === 'string' ? { testId: `${testId}-dismiss` } : {}}
       >
         {#if typeof dismissIcon === 'function'}

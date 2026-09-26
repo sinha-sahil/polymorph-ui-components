@@ -34,7 +34,9 @@ A text input field with built-in validation for email, phone (tel), password, an
 | actionInput          | `boolean`                                                              | No       | `false`  | When true, hides the label, error message, and info message, and adjusts border-radius/shadow for seamless integration inside InputButton.                                                                                |
 | useTextArea          | `boolean`                                                              | No       | `false`  | When true, renders a `<textarea>` instead of an `<input>`. Useful for multi-line text entry.                                                                                                                              |
 | autoComplete         | `HTMLInputAttributes['autocomplete']`                                  | No       | `'on'`   | The HTML autocomplete attribute value. Controls browser autofill behavior. Accepts any string for non-standard values (e.g., `'off'`, `'new-password'`).                                                                  |
-| name                 | `string`                                                               | No       | `''`     | The HTML name attribute for the input. Used for form submission and label association.                                                                                                                                    |
+| name                 | `string`                                                               | No       | `''`     | The HTML name attribute for the input. Used for form submission.                                                                                                                                                         |
+| id                   | `string`                                                               | No       | generated | The id of the input or textarea. The label is tied to it with `for`, so clicking the label focuses the field. Generated when omitted.                                                                                       |
+| ariaLabel            | `string`                                                               | No       | `-`      | Accessible name for a field without a visible label (e.g. a placeholder-only search or discount field). A visible `label` needs no ariaLabel.                                                                              |
 | textTransformers     | `TextTransformer[]`                                                    | No       | `[]`     | Array of functions applied to the raw input value before digit extraction (tel mode only). Use for stripping country codes or formatting.                                                                                 |
 | textViewPresentation | `TextTransformer[]`                                                    | No       | `[]`     | Array of functions applied to the value for display purposes. The underlying value stays clean but the displayed text is transformed (e.g., adding spaces every 4 digits for card numbers).                               |
 | testId               | `string`                                                               | No       | `''`     | Value for the data-pw attribute, used for end-to-end testing selectors.                                                                                                                                                   |
@@ -110,6 +112,12 @@ Override these custom properties to theme the component.
 | `--input-info-msg-padding`      | `-`                                                    | padding          | Padding inside the info message.                        |
 | `--input-placeholder-color`     | `#a1a1aa`                                              | color            | Color of placeholder text.                              |
 | `--input-error-border`          | `1px solid var(--input-error-msg-text-color, currentColor)` | border      | Border of the input when in error state.                |
+
+## Accessibility
+
+- The visible `label` is associated with the field by id, so it names the field and clicking it focuses the field.
+- Use `ariaLabel` when there is no visible label; a placeholder alone is not an accessible name.
+- Validation decides "still typing" by checking focus within the field's own root, so it works inside a shadow root too.
 
 ## Type Reference
 
