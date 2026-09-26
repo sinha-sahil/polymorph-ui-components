@@ -3,12 +3,13 @@
   import { onMount, onDestroy, untrack } from 'svelte';
   import ModalAnimation from '$lib/Animations/ModalAnimation.svelte';
   import OverlayAnimation from '$lib/Animations/OverlayAnimation.svelte';
-  import { createDebouncer } from '../utils';
+  import { createDebouncer, lockDocumentScroll } from '../utils';
   import Button from '$lib/Button/Button.svelte';
 
   let overlayDiv: HTMLDivElement | null = $state(null);
   let backPressed = false;
   let dismissTimer: ReturnType<typeof setTimeout> | null = null;
+  let unlockScroll: (() => void) | null = null;
 
   let {
     size = 'fit-content',
@@ -79,7 +80,7 @@
 
   onMount(() => {
     if (lockScroll) {
-      document.body.style.overflow = 'hidden';
+      unlockScroll = lockDocumentScroll();
     }
     if (typeof autoDismissAfter === 'number') {
       dismissTimer = setTimeout(() => onclose?.(), autoDismissAfter);
@@ -95,9 +96,7 @@
       clearTimeout(dismissTimer);
     }
     if (typeof window !== 'undefined') {
-      if (lockScroll) {
-        document.body.style.overflow = '';
-      }
+      unlockScroll?.();
       if (supportHardwareBackPress) {
         if (!backPressed) {
           history.back();

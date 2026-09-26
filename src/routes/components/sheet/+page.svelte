@@ -1,6 +1,7 @@
 <script lang="ts">
   import Button from '$lib/Button/Button.svelte';
   import Sheet from '$lib/Sheet/Sheet.svelte';
+  import chevronRightSvg from '$lib/assets/chevron-right.svg?raw';
 
   let showRight = $state(false);
   let showLeft = $state(false);
@@ -8,6 +9,7 @@
   let showBottom = $state(false);
   let showRaw = $state(false);
   let showFooter = $state(false);
+  let showCustomClose = $state(false);
 </script>
 
 <div class="page-header">
@@ -80,6 +82,20 @@
         A completely raw panel with no title or close button. Click the overlay or press Escape to
         dismiss.
       </p>
+    {/snippet}
+  </Sheet>
+</div>
+
+<h3>Custom close icon and label</h3>
+<div class="demo-row">
+  <Button text="Open cart" onclick={() => (showCustomClose = true)} />
+  <Sheet bind:open={showCustomClose} side="right" title="Your cart" closeLabel="Close cart">
+    {#snippet closeIcon()}
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+      {@html chevronRightSvg}
+    {/snippet}
+    {#snippet content()}
+      <p>The close button uses a custom icon and is announced as "Close cart".</p>
     {/snippet}
   </Sheet>
 </div>

@@ -11,6 +11,7 @@
   import chevronRightSvg from '$lib/assets/chevron-right-lg.svg?raw';
   import editSvg from '$lib/assets/edit.svg?raw';
   import deleteSvg from '$lib/assets/delete.svg?raw';
+  import { activeElementOf, deepActiveElement, lockDocumentScroll } from '$lib/utils';
 
   let {
     images,
@@ -54,16 +55,17 @@
   let showItemActions = $derived(showEditButton || showDeleteButton);
 
   function lightboxAction(node: HTMLElement) {
-    if (openerElement === null && document.activeElement instanceof HTMLElement) {
-      openerElement = document.activeElement;
+    const active = deepActiveElement();
+    if (openerElement === null && active instanceof HTMLElement) {
+      openerElement = active;
     }
-    document.body.style.overflow = 'hidden';
+    const unlockScroll = lockDocumentScroll();
     tick().then(() => {
       node.focus();
     });
     return {
       destroy() {
-        document.body.style.overflow = '';
+        unlockScroll();
         if (openerElement !== null) {
           openerElement.focus();
           openerElement = null;
@@ -93,7 +95,7 @@
     activeIndex = index;
     onchange?.(activeIndex);
     await tick();
-    if (lightboxDiv !== null && !lightboxDiv.contains(document.activeElement)) {
+    if (lightboxDiv !== null && !lightboxDiv.contains(activeElementOf(lightboxDiv))) {
       lightboxDiv.focus();
     }
   }
@@ -135,13 +137,11 @@
     if (first === null || last === null) {
       return;
     }
-    if (
-      event.shiftKey &&
-      (document.activeElement === first || document.activeElement === lightboxDiv)
-    ) {
+    const active = activeElementOf(first);
+    if (event.shiftKey && (active === first || active === lightboxDiv)) {
       event.preventDefault();
       last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
+    } else if (!event.shiftKey && active === last) {
       event.preventDefault();
       first.focus();
     }

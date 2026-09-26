@@ -8,6 +8,7 @@ export type MandatoryPillProperties = {
 
 export type OptionalPillProperties = {
   dismissible?: boolean;
+  dismissLabel?: string;
   disabled?: boolean;
   testId?: string;
   dismissIcon?: Snippet;
