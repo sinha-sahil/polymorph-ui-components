@@ -15,7 +15,7 @@ A dropdown selector that supports single and multi-select modes with optional se
   ];
 </script>
 
-<Select {items} placeholder="Pick a fruit" onchange={(val) => console.log(val)} />
+<Select {items} placeholder="Pick a fruit" ariaLabel="Fruit" onchange={(val) => console.log(val)} />
 ```
 
 ### Multi-Select with Search
@@ -34,6 +34,7 @@ A dropdown selector that supports single and multi-select modes with optional se
 | searchable  | `boolean`      | No       | `false` | Enables a text input in the trigger area for filtering items by label. Works in both single and multi-select modes.                                                    |
 | placeholder | `string`       | No       | `''`    | Text shown when no item is selected (or in the search input when empty).                                                                                               |
 | disabled    | `boolean`      | No       | `false` | When true, the select is non-interactive, has reduced opacity, and pointer events are disabled.                                                                        |
+| ariaLabel   | `string`       | No       | -       | Accessible name for a select without a visible label, e.g. `"Size"`. Set on the combobox, the search input and the listbox.                                            |
 | testId      | `string`       | No       | -       | Value for the `data-pw` attribute on the container element, used for end-to-end testing selectors.                                                                     |
 | classes     | `string`       | No       | -       | CSS class string applied to the component's top-level element. Useful for theming — define classes with CSS variable overrides and pass them to create variant styles. |
 
@@ -137,6 +138,11 @@ These variables style the Pill components shown for selected items in multi-sele
 | `--select-pill-padding`       | `2px 8px` | padding       | Padding inside selected item pills.      |
 | `--select-pill-font-size`     | `14px`    | font-size     | Font size of selected item pills.        |
 
+## Accessibility
+
+- The trigger is a `role="combobox"` that controls a `role="listbox"`; the highlighted option is exposed through `aria-activedescendant`.
+- Use `ariaLabel` when there is no visible label; a placeholder alone is not an accessible name.
+
 ## Type Reference
 
 Custom types used by this component's props and events:
@@ -161,7 +167,7 @@ This component uses the following library components internally:
 Tag: `<pui-select>`
 
 ```html
-<pui-select placeholder="Pick a fruit"></pui-select>
+<pui-select placeholder="Pick a fruit" aria-label="Fruit"></pui-select>
 
 <script>
   const el = document.querySelector('pui-select');

@@ -9,6 +9,7 @@
       searchable: { type: 'Boolean', reflect: true },
       placeholder: { type: 'String', reflect: true },
       disabled: { type: 'Boolean', reflect: true },
+      ariaLabel: { type: 'String', attribute: 'aria-label' },
       testId: { type: 'String', attribute: 'test-id' },
       classes: { type: 'String' },
       onchange: { type: 'Object' }
