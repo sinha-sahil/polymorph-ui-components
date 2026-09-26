@@ -23,6 +23,7 @@
 | 13 | Color Picker | :white_check_mark: | Color input with swatch preview and optional value display |
 | 14 | Split Input | :white_check_mark: | Segmented single-character input for codes and OTP entry |
 | 15 | Feedback | :x: | Inline feedback collector with text input and emotion selector |
+| 58 | Number Stepper | :white_check_mark: | − value + control for quantities, with async-aware loading (`NumberStepper`) |
 
 ---
 
@@ -92,7 +93,7 @@
 | --- | --- | --- | --- |
 | 47 | Grid | :white_check_mark: | Grid layout system (partially via `GridItem`) |
 | 48 | Material | :x: | Elevated surface with shadow and blur effects |
-| 49 | Empty State | :x: | Placeholder for areas with no content yet |
+| 49 | Empty State | :white_check_mark: | Placeholder for areas with no content yet (`EmptyState`) |
 | 50 | Project Banner | :x: | Project-wide notification bar requiring resolution |
 | 51 | Book | :white_check_mark: | Responsive page-flip presentation component |
 
@@ -128,9 +129,9 @@
 
 | Metric | Count |
 | --- | --- |
-| **Total Components** | 57 |
-| **Available** | 45 |
-| **To Build** | 12 |
+| **Total Components** | 58 |
+| **Available** | 47 |
+| **To Build** | 11 |
 
 ---
 

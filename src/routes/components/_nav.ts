@@ -38,7 +38,8 @@ export const componentNav: NavGroup[] = [
       { name: 'Phone', slug: 'phone' },
       { name: 'Book', slug: 'book' },
       { name: 'Resizable', slug: 'resizable' },
-      { name: 'Draggable', slug: 'draggable' }
+      { name: 'Draggable', slug: 'draggable' },
+      { name: 'EmptyState', slug: 'empty-state' }
     ]
   },
   {
@@ -65,7 +66,8 @@ export const componentNav: NavGroup[] = [
       { name: 'Calendar', slug: 'calendar' },
       { name: 'Choicebox', slug: 'choicebox' },
       { name: 'ColorPicker', slug: 'color-picker' },
-      { name: 'SplitInput', slug: 'split-input' }
+      { name: 'SplitInput', slug: 'split-input' },
+      { name: 'NumberStepper', slug: 'number-stepper' }
     ]
   },
   {
@@ -82,6 +84,7 @@ export const componentNav: NavGroup[] = [
     items: [
       { name: 'Table', slug: 'table' },
       { name: 'Accordion', slug: 'accordion' },
+      { name: 'Carousel', slug: 'carousel' },
       { name: 'ListItem', slug: 'list-item' },
       { name: 'GridItem', slug: 'grid-item' },
       { name: 'CheckListItem', slug: 'check-list-item' },

@@ -65,6 +65,8 @@ export { default as Resizable } from './Resizable/Resizable.svelte';
 export { default as Draggable } from './Draggable/Draggable.svelte';
 export { default as ChatBubble } from './ChatBubble/ChatBubble.svelte';
 export { default as Gallery } from './Gallery/Gallery.svelte';
+export { default as EmptyState } from './EmptyState/EmptyState.svelte';
+export { default as NumberStepper } from './NumberStepper/NumberStepper.svelte';
 export { ChatController } from './Chat/controller.svelte';
 export { partyOf } from './Chat/roles';
 
@@ -130,5 +132,7 @@ export type * from './Resizable/properties';
 export type * from './Draggable/properties';
 export type * from './ChatBubble/properties';
 export type * from './Gallery/properties';
+export type * from './EmptyState/properties';
+export type * from './NumberStepper/properties';
 
 export { validateInput } from './utils';

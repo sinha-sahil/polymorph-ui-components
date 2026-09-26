@@ -1,10 +1,16 @@
 <script lang="ts">
   import type { LoaderProperties } from './properties';
 
-  let { testId, classes }: LoaderProperties = $props();
+  let { label, testId, classes }: LoaderProperties = $props();
+
+  let announced = $derived(typeof label === 'string' && label.length > 0);
 </script>
 
-<div class="loader {classes ?? ''}" data-pw={testId}></div>
+<div class="loader {classes ?? ''}" role={announced ? 'status' : null} data-pw={testId}>
+  {#if announced}
+    <span class="loader-label">{label}</span>
+  {/if}
+</div>
 
 <style>
   .loader {
@@ -40,8 +46,8 @@
       var(--loader-foreground-end, transparent) 42%
     );
     position: relative;
-    -webkit-animation: load3 1.4s infinite linear;
-    animation: load3 1.4s infinite linear;
+    -webkit-animation: load3 var(--loader-duration, 1.4s) infinite linear;
+    animation: load3 var(--loader-duration, 1.4s) infinite linear;
     -webkit-transform: translateZ(0);
     -ms-transform: translateZ(0);
     transform: translateZ(0);
@@ -66,6 +72,14 @@
     top: var(--loader-after-top, 50%);
     left: var(--loader-after-left, 50%);
     transform: translate(-50%, -50%);
+  }
+  .loader-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
   @-webkit-keyframes load3 {
     0% {

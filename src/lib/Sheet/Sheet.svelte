@@ -1,8 +1,11 @@
 <script lang="ts">
   import type { SheetProperties } from './properties';
   import { fly, fade } from 'svelte/transition';
+  import { prefersReducedMotion } from 'svelte/motion';
   import { tick } from 'svelte';
   import Button from '../Button/Button.svelte';
+  import closeSvg from '$lib/assets/close.svg?raw';
+  import { deepActiveElement, focusableElements, lockDocumentScroll } from '$lib/utils';
 
   let {
     open = $bindable(false),
@@ -10,31 +13,57 @@
     title,
     showOverlay = true,
     showCloseButton = true,
+    closeLabel = 'Close',
     testId,
     content,
     footer,
+    closeIcon,
     onclose,
     classes
   }: SheetProperties = $props();
 
   let overlayDiv: HTMLDivElement | null = $state(null);
   let sheetPanel: HTMLDivElement | null = $state(null);
+  let openerElement: HTMLElement | null = null;
+
+  let fadeDuration = $derived(prefersReducedMotion.current ? 0 : 200);
 
   let flyParams = $derived.by(() => {
+    const duration = prefersReducedMotion.current ? 0 : 300;
     switch (side) {
       case 'left':
-        return { x: -400, y: 0, duration: 300 };
+        return { x: '-100%', duration };
       case 'right':
-        return { x: 400, y: 0, duration: 300 };
+        return { x: '100%', duration };
       case 'top':
-        return { x: 0, y: -400, duration: 300 };
+        return { y: '-100%', duration };
       case 'bottom':
-        return { x: 0, y: 400, duration: 300 };
+        return { y: '100%', duration };
     }
   });
 
+  function enter() {
+    if (openerElement === null) {
+      const active = deepActiveElement();
+      openerElement = active instanceof HTMLElement ? active : null;
+    }
+    tick().then(() => {
+      if (sheetPanel !== null) {
+        sheetPanel.focus();
+      }
+    });
+  }
+
+  function restoreFocus() {
+    if (openerElement !== null && openerElement.isConnected) {
+      openerElement.focus();
+    }
+    openerElement = null;
+  }
+
   function close() {
     open = false;
+    restoreFocus();
     onclose?.();
   }
 
@@ -44,65 +73,77 @@
     }
   }
 
-  function handleKeyDown(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
-      close();
+  function trapTab(event: KeyboardEvent) {
+    if (sheetPanel === null) {
+      return;
+    }
+    const focusable = focusableElements(sheetPanel);
+    const first = focusable.at(0);
+    const last = focusable.at(-1);
+
+    if (!(first instanceof HTMLElement) || !(last instanceof HTMLElement)) {
+      event.preventDefault();
+      sheetPanel.focus();
       return;
     }
 
-    if (event.key === 'Tab' && sheetPanel !== null) {
-      const focusable = sheetPanel.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      const first = focusable.item(0);
-      const last = focusable.item(focusable.length - 1);
-
-      if (first === null || last === null) {
-        return;
-      }
-
-      const atEdge = document.activeElement === (event.shiftKey ? first : last);
-      if (atEdge) {
-        event.preventDefault();
-        (event.shiftKey ? last : first).focus();
-      }
+    const active = deepActiveElement();
+    const inside = active === sheetPanel || focusable.some((element) => element === active);
+    if (!inside) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    } else if (event.shiftKey && (active === first || active === sheetPanel)) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
     }
   }
 
-  function lockScroll() {
-    document.body.style.overflow = 'hidden';
+  function handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      close();
+    } else if (event.key === 'Tab') {
+      trapTab(event);
+    }
   }
 
-  function unlockScroll() {
-    document.body.style.overflow = '';
+  function handleWindowKeyDown(event: KeyboardEvent) {
+    if (!open || event.defaultPrevented) {
+      return;
+    }
+    if (overlayDiv !== null && event.composedPath().includes(overlayDiv)) {
+      return;
+    }
+    handleKeyDown(event);
   }
 
-  function scrollLockAction(_node: HTMLElement) {
-    lockScroll();
-    tick().then(() => {
-      if (sheetPanel !== null) {
-        sheetPanel.focus();
-      }
-    });
+  function sheetAction(_node: HTMLElement) {
+    const unlockScroll = lockDocumentScroll();
+    enter();
     return {
       destroy() {
         unlockScroll();
+        restoreFocus();
       }
     };
   }
 </script>
 
+<svelte:window onkeydown={handleWindowKeyDown} />
+
 {#if open}
   <div
     bind:this={overlayDiv}
-    use:scrollLockAction
+    use:sheetAction
     class="sheet-overlay {showOverlay ? 'overlay-active' : 'overlay-inactive'} {classes ?? ''}"
     onclick={handleOverlayClick}
     onkeydown={handleKeyDown}
-    role="button"
-    tabindex="-1"
+    role="presentation"
     data-pw={testId}
-    transition:fade={{ duration: 200 }}
+    transition:fade={{ duration: fadeDuration }}
   >
     <div
       bind:this={sheetPanel}
@@ -112,20 +153,26 @@
       aria-label={title ?? 'Sheet'}
       tabindex="-1"
       transition:fly|global={flyParams}
+      onintrostart={enter}
     >
       {#if typeof title === 'string' || showCloseButton}
         <div class="sheet-header">
           {#if typeof title === 'string'}
-            <span class="sheet-title">{title}</span>
+            <h2 class="sheet-title">{title}</h2>
           {/if}
           {#if showCloseButton}
             <div class="sheet-close-button">
               <Button
                 onclick={close}
-                ariaLabel="Close"
+                ariaLabel={closeLabel}
                 {...typeof testId === 'string' ? { testId: `${testId}-close` } : {}}
               >
-                &#x2715;
+                {#if typeof closeIcon === 'function'}
+                  {@render closeIcon()}
+                {:else}
+                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                  {@html closeSvg}
+                {/if}
               </Button>
             </div>
           {/if}
@@ -213,6 +260,8 @@
   .sheet-header {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    gap: var(--sheet-header-gap, 8px);
     padding: var(--sheet-header-padding, 16px 20px);
     background-color: var(--sheet-header-background, inherit);
     border-bottom: var(--sheet-header-border-bottom, 1px solid #e4e4e7);
@@ -221,6 +270,7 @@
 
   .sheet-title {
     flex: 1;
+    margin: 0;
     font-size: var(--sheet-title-font-size, 18px);
     font-weight: var(--sheet-title-font-weight, 600);
     font-family: var(--sheet-title-font-family, inherit);
@@ -244,9 +294,15 @@
     justify-content: center;
   }
 
+  .sheet-close-button :global(svg) {
+    width: var(--sheet-close-icon-size, var(--sheet-close-button-font-size, 16px));
+    height: var(--sheet-close-icon-size, var(--sheet-close-button-font-size, 16px));
+  }
+
   .sheet-content {
     flex: 1;
     overflow-y: var(--sheet-content-overflow-y, auto);
+    overscroll-behavior: contain;
     padding: var(--sheet-content-padding, 20px);
     scrollbar-width: var(--sheet-scrollbar-width, none);
   }

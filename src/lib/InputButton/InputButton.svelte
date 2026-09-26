@@ -23,6 +23,9 @@
 
   let validationState = $state<ValidationState>('InProgress');
 
+  const generatedId = $props.id();
+  const inputId = $derived(inputProperties.id ?? generatedId);
+
   let inputRef: SvelteComponent | null = $state(null);
 
   // Derive enable state for right button
@@ -61,8 +64,8 @@
 </script>
 
 <div class="container {classes ?? ''}" data-pw={testId}>
-  {#if inputProperties.label && inputProperties.label !== ''}
-    <label class="label" for={inputProperties.name}>
+  {#if typeof inputProperties.label === 'string' && inputProperties.label.length > 0}
+    <label class="label" for={inputId}>
       {inputProperties.label}
     </label>
   {/if}
@@ -79,6 +82,7 @@
         <Input
           {...inputProperties}
           {...inputEventProperties}
+          id={inputId}
           bind:value
           bind:this={inputRef}
           onstatechange={handleStateChange}
@@ -102,12 +106,12 @@
       </div>
     {/if}
   </div>
-  {#if inputProperties.onErrorMessage !== '' && validationState === 'Invalid'}
+  {#if typeof inputProperties.onErrorMessage === 'string' && inputProperties.onErrorMessage.length > 0 && validationState === 'Invalid'}
     <div class="error-message">
       {inputProperties.onErrorMessage}
     </div>
   {/if}
-  {#if inputProperties.infoMessage !== ''}
+  {#if typeof inputProperties.infoMessage === 'string' && inputProperties.infoMessage.length > 0}
     <div class="info-message">
       {inputProperties.infoMessage}
     </div>
@@ -127,7 +131,6 @@
     --input-focus-border: none;
     --input-box-shadow: none;
     --input-margin: none;
-    --input-width: fit-content;
     height: var(--input-height, fit-content);
     font-size: var(--input-font-size, 16px) !important;
     font-weight: 500;
@@ -141,6 +144,7 @@
   .input-button {
     display: flex;
     align-items: stretch;
+    height: 100%;
     border-radius: var(--input-button-radius, 6px);
     border: var(--input-button-border, 1px solid currentColor);
     box-shadow: var(--input-button-box-shadow, none);
@@ -151,7 +155,11 @@
     border: var(--input-button-focus-border);
   }
   .input {
+    --input-container-width: 100%;
+    --input-width: 100%;
+    --input-height: 100%;
     flex: 2;
+    display: flex;
     min-width: 0px;
   }
 

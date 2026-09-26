@@ -1,6 +1,6 @@
 # InputButton
 
-A composite component that combines an Input field with optional left, right, and bottom Button components. The right button is automatically disabled until the input validation state becomes `Valid`, and the bottom button's click handler only fires once validation is `Valid`. Pressing Enter in the input triggers the right button's `onkeyup` handler when validation passes. The input label and error/info messages are rendered outside the input-button group. Internally uses the Input component with `actionInput=true` for seamless visual integration.
+A composite component that combines an Input field with optional left, right, and bottom Button components. The right button is automatically disabled until the input validation state becomes `Valid`, and the bottom button's click handler only fires once validation is `Valid`. Pressing Enter in the input triggers the right button's `onkeyup` handler when validation passes. The input label and error/info messages are rendered outside the input-button group; the label is tied to the input by id, and empty or missing messages render nothing. The input fills its part of the row and stretches to the row's height, so its text lines up with the buttons. Internally uses the Input component with `actionInput=true` for seamless visual integration.
 
 ## Usage
 
@@ -58,7 +58,7 @@ Override these custom properties to theme the component.
 | Variable                                | Default                                              | CSS Property                    | Description                                                                 |
 | --------------------------------------- | ---------------------------------------------------- | ------------------------------- | --------------------------------------------------------------------------- |
 | `--input-button-container-margin`       | `-`                                                  | margin                          | Outer margin of the entire InputButton container.                           |
-| `--input-height`                        | `fit-content`                                        | height                          |                                                                             |
+| `--input-height`                        | `fit-content`                                        | height                          | Height of the whole control; the input and buttons stretch to fill it.     |
 | `--input-font-size`                     | `16px`                                               | font-size                       |                                                                             |
 | `--input-button-margin`                 | `-`                                                  | margin                          | Margin of the inner input-button row.                                       |
 | `--input-button-radius`                 | `6px`                                                | border-radius                   | Corner rounding of the input-button row.                                    |

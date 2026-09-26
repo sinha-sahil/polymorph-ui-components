@@ -8,6 +8,8 @@
       title: { type: 'String', reflect: true },
       showOverlay: { type: 'Boolean', reflect: true, attribute: 'show-overlay' },
       showCloseButton: { type: 'Boolean', reflect: true, attribute: 'show-close-button' },
+      closeLabel: { type: 'String', attribute: 'close-label' },
+      closeIcon: { type: 'Object' },
       testId: { type: 'String', attribute: 'test-id' },
       classes: { type: 'String' },
       onclose: { type: 'Object' }

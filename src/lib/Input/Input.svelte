@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { validateInput } from '$lib/utils';
+  import { activeElementOf, validateInput } from '$lib/utils';
   import type { InputProperties } from './properties';
   import type { ValidationState } from '$lib/types';
 
@@ -23,6 +23,8 @@
     useTextArea = false,
     autoComplete = 'on',
     name = '',
+    id,
+    ariaLabel,
     testId = '',
     textTransformers = [],
     textViewPresentation = [],
@@ -41,6 +43,9 @@
     ariaControls,
     ariaActivedescendant
   }: InputProperties = $props();
+
+  const generatedId = $props.id();
+  const inputId = $derived(id ?? generatedId);
 
   export function focus() {
     try {
@@ -77,7 +82,7 @@
       valueValidation === 'InProgress' &&
       value.length > 0 &&
       inputElement !== null &&
-      inputElement !== document.activeElement
+      inputElement !== activeElementOf(inputElement)
     ) {
       return 'Invalid';
     }
@@ -194,7 +199,7 @@
 
 <div class="input-container {classes ?? ''}" class:input-error={showErrorMessage && !actionInput}>
   {#if typeof label === 'string' && label !== '' && !actionInput}
-    <label class="label" for={name}>
+    <label class="label" for={inputId}>
       {label}
     </label>
   {/if}
@@ -206,7 +211,9 @@
       {placeholder}
       autocomplete={autoComplete}
       {name}
+      id={inputId}
       {role}
+      aria-label={ariaLabel}
       aria-expanded={ariaExpanded}
       aria-autocomplete={ariaAutocomplete}
       aria-controls={ariaControls}
@@ -231,7 +238,9 @@
       {placeholder}
       autocomplete={autoComplete}
       {name}
+      id={inputId}
       {role}
+      aria-label={ariaLabel}
       aria-expanded={ariaExpanded}
       aria-autocomplete={ariaAutocomplete}
       aria-controls={ariaControls}

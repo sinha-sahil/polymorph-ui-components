@@ -5,6 +5,7 @@
     props: {
       text: { type: 'String', reflect: true },
       dismissible: { type: 'Boolean', reflect: true },
+      dismissLabel: { type: 'String', attribute: 'dismiss-label' },
       disabled: { type: 'Boolean', reflect: true },
       testId: { type: 'String', attribute: 'test-id' },
       dismissIcon: { type: 'Object' },
