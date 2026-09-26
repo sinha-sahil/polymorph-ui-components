@@ -11,6 +11,7 @@
     searchable = false,
     placeholder = '',
     disabled = false,
+    ariaLabel,
     testId,
     onchange,
     classes
@@ -240,6 +241,7 @@
     onclick={handleTriggerClick}
     onkeydown={handleKeydown}
     role="combobox"
+    aria-label={ariaLabel}
     aria-expanded={isOpen}
     aria-haspopup="listbox"
     aria-controls={listboxId}
@@ -265,6 +267,7 @@
           onfocus={handleSearchFocus}
           bind:this={searchInputEl}
           placeholder={value.length === 0 ? placeholder : ''}
+          aria-label={ariaLabel}
           {disabled}
           autocomplete="off"
           tabindex={disabled ? -1 : 0}
@@ -281,6 +284,7 @@
         onfocus={handleSearchFocus}
         bind:this={searchInputEl}
         placeholder={searchPlaceholder}
+        aria-label={ariaLabel}
         {disabled}
         autocomplete="off"
         tabindex={disabled ? -1 : 0}
@@ -295,7 +299,13 @@
   </div>
 
   {#if isOpen && !disabled}
-    <div class="select-dropdown" role="listbox" id={listboxId} aria-multiselectable={multiple}>
+    <div
+      class="select-dropdown"
+      role="listbox"
+      id={listboxId}
+      aria-label={ariaLabel}
+      aria-multiselectable={multiple}
+    >
       {#if filteredItems.length === 0}
         <div class="select-empty">No results</div>
       {:else}

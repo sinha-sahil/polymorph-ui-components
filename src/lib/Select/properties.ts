@@ -17,6 +17,7 @@ export type OptionalSelectProperties = {
   searchable?: boolean;
   placeholder?: string;
   disabled?: boolean;
+  ariaLabel?: string;
   testId?: string;
   classes?: string;
 };

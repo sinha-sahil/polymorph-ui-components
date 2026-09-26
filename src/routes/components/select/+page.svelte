@@ -47,7 +47,7 @@
 
 <h3>Single select</h3>
 <div class="demo-row" style="max-width: 300px;">
-  <Select items={fruits} bind:value={singleValue} placeholder="Choose a fruit" />
+  <Select items={fruits} bind:value={singleValue} placeholder="Choose a fruit" ariaLabel="Fruit" />
   {#if singleValue.length > 0}
     <p class="demo-info">Selected ID: {singleValue.at(0)}</p>
   {/if}
@@ -55,7 +55,13 @@
 
 <h3>Single select + searchable</h3>
 <div class="demo-row" style="max-width: 300px;">
-  <Select items={cities} bind:value={searchValue} searchable placeholder="Search cities..." />
+  <Select
+    items={cities}
+    bind:value={searchValue}
+    searchable
+    placeholder="Search cities..."
+    ariaLabel="City"
+  />
   {#if searchValue.length > 0}
     <p class="demo-info">Selected ID: {searchValue.at(0)}</p>
   {/if}
@@ -63,7 +69,13 @@
 
 <h3>Multi select</h3>
 <div class="demo-row" style="max-width: 400px;">
-  <Select items={fruits} multiple bind:value={multiValue} placeholder="Pick fruits" />
+  <Select
+    items={fruits}
+    multiple
+    bind:value={multiValue}
+    placeholder="Pick fruits"
+    ariaLabel="Fruits"
+  />
   {#if multiValue.length > 0}
     <p class="demo-info">Selected IDs: {multiValue.join(', ')}</p>
   {/if}
@@ -77,6 +89,7 @@
     searchable
     bind:value={multiSearchValue}
     placeholder="Search languages..."
+    ariaLabel="Languages"
   />
   {#if multiSearchValue.length > 0}
     <p class="demo-info">Selected IDs: {multiSearchValue.join(', ')}</p>
@@ -85,7 +98,7 @@
 
 <h3>Disabled</h3>
 <div class="demo-row" style="max-width: 300px;">
-  <Select items={fruits} disabled placeholder="Can't touch this" />
+  <Select items={fruits} disabled placeholder="Can't touch this" ariaLabel="Fruit" />
 </div>
 
 <style>
