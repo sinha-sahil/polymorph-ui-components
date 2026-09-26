@@ -233,7 +233,7 @@ Now you can ask: _"Using the polymorph-ui MCP, theme the Select to match my bran
 
 | Component                                 | Description                                                                                           |                                |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------ |
-| **Modal**                                 | Dialog overlay with size/alignment, header, footer, transitions, scroll-lock, and back-press support. | [docs](docs/Modal.md)          |
+| **Modal**                                 | Dialog with focus handling, size/alignment, header, footer, transitions, scroll-lock and back-press support. | [docs](docs/Modal.md)          |
 | **Sheet**                                 | Slide-in panel from any edge with header, scrollable body, footer, focus trap and focus return.       | [docs](docs/Sheet.md)          |
 | **Menu**                                  | Dropdown action menu with keyboard navigation, typeahead, disabled/danger items, and separators.      | [docs](docs/Menu.md)           |
 | **ContextMenu**                           | Right-click menu with separators, disabled/danger items, and keyboard navigation.                     | [docs](docs/ContextMenu.md)    |
@@ -287,6 +287,8 @@ Now you can ask: _"Using the polymorph-ui MCP, theme the Select to match my bran
 | **Progress**                               | Animated progress bar (determinate / indeterminate) with optional milestones. | [docs](docs/Progress.md) |
 | **Gauge**                                  | Full-circle ring gauge (0–100) with animated SVG arc.                   | [docs](docs/Gauge.md)    |
 | **Loader** / **LoadingDots** / **Shimmer** | Spinner, animated dots, and skeleton shimmer — all CSS-variable themed. | [docs](docs/Loader.md)   |
+| **Confetti**                               | One-shot burst from the top, middle, bottom or sides; skipped under reduced motion. | [docs](docs/Confetti.md) |
+| **Countdown**                              | Bar that drains over a duration, then fires `oncountdownend`.            | [docs](docs/Countdown.md) |
 
 </details>
 

@@ -63,3 +63,5 @@ import './components/Draggable.wc.svelte';
 import './components/ChatBubble.wc.svelte';
 import './components/Gallery.wc.svelte';
 import './components/NumberStepper.wc.svelte';
+import './components/Confetti.wc.svelte';
+import './components/Countdown.wc.svelte';

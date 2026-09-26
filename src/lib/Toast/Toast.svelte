@@ -1,5 +1,6 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
+  import { prefersReducedMotion } from 'svelte/motion';
   import type { ToastDirection, ToastProperties } from './properties';
   import type { FlyAnimationConfig } from '$lib/types';
   import { onMount } from 'svelte';
@@ -72,12 +73,12 @@
       in: {
         x: inX,
         y: inY,
-        duration: inAnimationDuration ?? 400
+        duration: prefersReducedMotion.current ? 0 : (inAnimationDuration ?? 400)
       },
       out: {
         x: outX,
         y: outY,
-        duration: outAnimationDuration ?? 800
+        duration: prefersReducedMotion.current ? 0 : (outAnimationDuration ?? 800)
       }
     };
   }

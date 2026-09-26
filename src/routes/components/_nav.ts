@@ -102,7 +102,9 @@ export const componentNav: NavGroup[] = [
       { name: 'Gauge', slug: 'gauge' },
       { name: 'Loader', slug: 'loader' },
       { name: 'LoadingDots', slug: 'loading-dots' },
-      { name: 'Shimmer', slug: 'shimmer' }
+      { name: 'Shimmer', slug: 'shimmer' },
+      { name: 'Confetti', slug: 'confetti' },
+      { name: 'Countdown', slug: 'countdown' }
     ]
   },
   {

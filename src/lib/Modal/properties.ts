@@ -11,6 +11,7 @@ export type ModalProperties = ModalEventProperties & {
   showOverlay?: boolean;
   lockScroll?: boolean;
   autoDismissAfter?: number | null;
+  ariaLabel?: string;
   supportHardwareBackPress?: boolean;
   enableTransition?: boolean;
   transitionType?: ModalTransition;

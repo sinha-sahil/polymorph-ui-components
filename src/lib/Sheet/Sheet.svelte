@@ -2,7 +2,6 @@
   import type { SheetProperties } from './properties';
   import { fly, fade } from 'svelte/transition';
   import { prefersReducedMotion } from 'svelte/motion';
-  import { tick } from 'svelte';
   import Button from '../Button/Button.svelte';
   import closeSvg from '$lib/assets/close.svg?raw';
   import { deepActiveElement, focusableElements, lockDocumentScroll } from '$lib/utils';
@@ -42,16 +41,21 @@
     }
   });
 
-  function enter() {
-    if (openerElement === null) {
-      const active = deepActiveElement();
-      openerElement = active instanceof HTMLElement ? active : null;
+  function rememberOpener(event: FocusEvent & { currentTarget: HTMLElement }) {
+    const from = event.relatedTarget;
+    if (
+      openerElement === null &&
+      from instanceof HTMLElement &&
+      !event.currentTarget.contains(from)
+    ) {
+      openerElement = from;
     }
-    tick().then(() => {
-      if (sheetPanel !== null) {
-        sheetPanel.focus();
-      }
-    });
+  }
+
+  function enter(panel: HTMLElement) {
+    if (!panel.contains(deepActiveElement())) {
+      panel.focus();
+    }
   }
 
   function restoreFocus() {
@@ -122,7 +126,6 @@
 
   function sheetAction(_node: HTMLElement) {
     const unlockScroll = lockDocumentScroll();
-    enter();
     return {
       destroy() {
         unlockScroll();
@@ -153,7 +156,9 @@
       aria-label={title ?? 'Sheet'}
       tabindex="-1"
       transition:fly|global={flyParams}
-      onintrostart={enter}
+      use:enter
+      onintrostart={(event) => enter(event.currentTarget)}
+      onfocusin={rememberOpener}
     >
       {#if typeof title === 'string' || showCloseButton}
         <div class="sheet-header">
