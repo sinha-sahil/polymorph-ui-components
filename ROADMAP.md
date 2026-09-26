@@ -58,6 +58,8 @@
 | 32 | Loading Dots | :white_check_mark: | Animated dot sequence for inline loading indication |
 | 33 | Progress | :white_check_mark: | Linear bar showing task completion or usage limits |
 | 34 | Skeleton | :white_check_mark: | Placeholder shimmer while content loads (via `Shimmer`) |
+| 59 | Confetti | :white_check_mark: | One-shot celebratory burst from the top, middle, bottom or sides |
+| 60 | Countdown | :white_check_mark: | Bar that drains over a duration, for anything that closes or expires on a timer |
 
 ---
 
@@ -129,8 +131,8 @@
 
 | Metric | Count |
 | --- | --- |
-| **Total Components** | 58 |
-| **Available** | 46 |
+| **Total Components** | 60 |
+| **Available** | 48 |
 | **To Build** | 12 |
 
 ---

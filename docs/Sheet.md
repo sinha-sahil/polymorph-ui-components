@@ -98,7 +98,7 @@ Override these custom properties to theme the component.
 
 - The sheet panel has `role="dialog"` and `aria-modal="true"` for screen reader support; the title is an `h2` (it was a `span`; page-wide `h2` rules other than margin, font and colour now reach it).
 - The overlay is `role="presentation"`, so the dialog is never announced as part of a button.
-- Focus is automatically moved to the sheet panel when it opens (also when it is reopened while closing), and returns to the previously focused element when it closes.
+- Focus is automatically moved to the sheet panel when it opens (also when it is reopened while closing), unless something inside the panel, such as a dialog opening with it, already took focus. It returns to the previously focused element when the sheet closes.
 - Focus is trapped within the sheet panel using Tab/Shift+Tab cycling. The trap walks the composed tree, so content passed through slots (`<pui-sheet>`) and open shadow roots take part, and inert or hidden elements are skipped. It works when the sheet itself lives in a shadow root.
 - Escape and Tab still work if focus has fallen out of the panel, for example after the focused element was removed: Escape closes and Tab brings focus back in.
 - Pressing the Escape key closes the sheet.

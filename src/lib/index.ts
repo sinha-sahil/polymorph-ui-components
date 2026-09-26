@@ -66,6 +66,8 @@ export { default as Draggable } from './Draggable/Draggable.svelte';
 export { default as ChatBubble } from './ChatBubble/ChatBubble.svelte';
 export { default as Gallery } from './Gallery/Gallery.svelte';
 export { default as NumberStepper } from './NumberStepper/NumberStepper.svelte';
+export { default as Confetti } from './Confetti/Confetti.svelte';
+export { default as Countdown } from './Countdown/Countdown.svelte';
 export { ChatController } from './Chat/controller.svelte';
 export { partyOf } from './Chat/roles';
 
@@ -132,5 +134,7 @@ export type * from './Draggable/properties';
 export type * from './ChatBubble/properties';
 export type * from './Gallery/properties';
 export type * from './NumberStepper/properties';
+export type * from './Confetti/properties';
+export type * from './Countdown/properties';
 
 export { validateInput } from './utils';

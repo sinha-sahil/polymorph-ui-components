@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import { fly, fade } from 'svelte/transition';
+  import { prefersReducedMotion } from 'svelte/motion';
   import type { ModalAlign } from '$lib/Modal/properties';
   import type { ModalTransition } from '$lib/types';
 
@@ -14,7 +15,7 @@
   let { enable = true, align = 'bottom', transitionType = 'ALL', children }: Props = $props();
 
   let flyAnimationProperties = $derived.by(() => {
-    const base = { x: 0, y: 0, duration: 380 };
+    const base = { x: 0, y: 0, duration: prefersReducedMotion.current ? 0 : 380 };
 
     switch (align) {
       case 'top':
@@ -26,7 +27,7 @@
     }
   });
 
-  let fadeAnimationProperties = { duration: 300 };
+  let fadeAnimationProperties = $derived({ duration: prefersReducedMotion.current ? 0 : 300 });
 
   let useFlyAnimation = $derived(align === 'top' || align === 'bottom');
   let useOutTransition = $derived(transitionType === 'ALL');

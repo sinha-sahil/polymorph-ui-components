@@ -92,6 +92,14 @@
     "description": "A command palette overlay (Ctrl+K / Cmd+K) with substring search filtering, optional command groups with headings, and keyboard navigation. Supports per-item icons, shortcut display, and a custom empty state."
   },
   {
+    "name": "Confetti",
+    "description": "A one-shot confetti burst for celebrating a moment. `origin` sets where pieces come from: `top` rains across the top edge, `center` bursts out of the middle, `bottom` fountains up, `sides` fires from both bottom corners. Covers the nearest positioned ancestor (or the viewport with `--confetti-position: fixed`), then `onconfettiend` fires. Decorative (`aria-hidden`) and never blocks clicks. Plays once per mount; wrap it in `{#key}` to replay. Under reduced motion nothing renders and `onconfettiend` fires at once. Five `--confetti-color-*` variables set the palette."
+  },
+  {
+    "name": "Countdown",
+    "description": "A bar that drains over `duration` milliseconds, then fires `oncountdownend`: for anything that closes or expires on a timer, such as a modal that closes itself. Plays once per mount; wrap it in `{#key}` to restart. With `ariaLabel` it is a named `role=timer`, otherwise decorative. Steps down once a second under reduced motion."
+  },
+  {
     "name": "ContextMenu",
     "description": "A right-click context menu with a flat list of items supporting separators, disabled items, danger styling, optional icons, and shortcut labels. Has keyboard navigation, positions itself at the click point, and adjusts to stay within the viewport."
   },
@@ -161,7 +169,7 @@
   },
   {
     "name": "Modal",
-    "description": "A dialog overlay component that renders on top of the page with configurable size, alignment, header, footer, and transition animations. Locks body scroll and optionally handles hardware back-press navigation. Supports click-to-dismiss and Escape key."
+    "description": "A dialog overlay (`role=dialog`, `aria-modal`, `ariaLabel`) with configurable size, alignment, header, footer and transitions. Focus moves in on open, Tab stays inside, and focus returns on close, or to the dialog around it when focus came from outside. Escape and Tab inside stay with it, so an outer sheet neither closes nor pulls focus. Locks page scroll (optional), handles hardware back-press, dismisses on overlay click, and `autoDismissAfter` closes it after a time. For a visible countdown, put a `Countdown` in the content. Motion is skipped under reduced motion."
   },
   {
     "name": "ModalAnimation",
@@ -257,7 +265,7 @@
   },
   {
     "name": "Toast",
-    "description": "An animated notification that slides in from a configurable direction, stays visible for a duration, then slides out. Unstyled by default — themed via CSS variables (--toast-background-color, --toast-color, etc.) or consumer-defined variant classes passed through `classes`. Has optional icons, subtext, and bottom content."
+    "description": "An animated notification that slides in from a configurable direction, stays visible for a duration, then slides out. Unstyled by default — themed via CSS variables (--toast-background-color, --toast-color, etc.) or consumer-defined variant classes passed through `classes`. Has optional icons, subtext, and bottom content. Appears and hides without sliding for reduced-motion users."
   },
   {
     "name": "Toggle",

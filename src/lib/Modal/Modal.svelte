@@ -3,7 +3,12 @@
   import { onMount, onDestroy, untrack } from 'svelte';
   import ModalAnimation from '$lib/Animations/ModalAnimation.svelte';
   import OverlayAnimation from '$lib/Animations/OverlayAnimation.svelte';
-  import { createDebouncer, lockDocumentScroll } from '../utils';
+  import {
+    createDebouncer,
+    deepActiveElement,
+    focusableElements,
+    lockDocumentScroll
+  } from '../utils';
   import Button from '$lib/Button/Button.svelte';
 
   let overlayDiv: HTMLDivElement | null = $state(null);
@@ -17,6 +22,7 @@
     showOverlay = true,
     lockScroll = true,
     autoDismissAfter = null,
+    ariaLabel,
     supportHardwareBackPress = false,
     enableTransition = true,
     transitionType = 'ALL',
@@ -78,6 +84,59 @@
     }
   }
 
+  function returnTarget(dialog: HTMLElement): HTMLElement | null {
+    const active = deepActiveElement();
+    const outer = dialog.parentElement?.closest<HTMLElement>('[aria-modal="true"]') ?? null;
+    if (outer !== null && !outer.contains(active)) {
+      return outer;
+    }
+    return active instanceof HTMLElement ? active : null;
+  }
+
+  function holdFocus(dialog: HTMLElement) {
+    const opener = returnTarget(dialog);
+    dialog.focus();
+    return {
+      destroy() {
+        if (opener !== null && opener.isConnected) {
+          opener.focus();
+        }
+      }
+    };
+  }
+
+  function trapTab(event: KeyboardEvent, dialog: HTMLElement): void {
+    const focusable = focusableElements(dialog);
+    const first = focusable.at(0);
+    const last = focusable.at(-1);
+    if (!(first instanceof HTMLElement) || !(last instanceof HTMLElement)) {
+      event.preventDefault();
+      dialog.focus();
+      return;
+    }
+    const active = deepActiveElement();
+    if (event.shiftKey && (active === first || active === dialog)) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  function handleDialogKeyDown(event: KeyboardEvent & { currentTarget: HTMLElement }): void {
+    if (event.key !== 'Escape' && event.key !== 'Tab') {
+      return;
+    }
+    event.stopPropagation();
+    handleKeyDown(event);
+    if (event.key === 'Escape') {
+      event.preventDefault();
+    } else {
+      trapTab(event, event.currentTarget);
+    }
+  }
+
   onMount(() => {
     if (lockScroll) {
       unlockScroll = lockDocumentScroll();
@@ -116,12 +175,19 @@
       class="modal {align} {showOverlay ? 'overlay-active' : 'overlay-inactive'} {classes ?? ''}"
       onclick={handleOverlayClick}
       {onkeydown}
-      role="button"
-      tabindex="0"
+      role="presentation"
       data-pw={testId}
     >
       <ModalAnimation enable={enableTransition} {align} {transitionType}>
-        <div class="modal-content {size}">
+        <div
+          use:holdFocus
+          class="modal-content {size}"
+          role="dialog"
+          aria-modal="true"
+          aria-label={ariaLabel ?? header?.text}
+          tabindex="-1"
+          onkeydown={handleDialogKeyDown}
+        >
           {#if (typeof header?.leftImage === 'string' && header.leftImage.length > 0) || (typeof header?.text === 'string' && header.text.length > 0) || (typeof header?.rightImage === 'string' && header.rightImage.length > 0)}
             <div class="header">
               {#if header.leftImage}
@@ -216,6 +282,7 @@
     border-radius: var(--modal-border-radius, 8px);
     overflow: var(--modal-content-overflow, auto);
     border-top: var(--modal-content-border-top);
+    outline: none;
   }
 
   .slot-content {
