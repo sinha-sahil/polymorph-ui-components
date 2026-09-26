@@ -2,10 +2,17 @@
 based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.6.2...HEAD)
+## [Unreleased](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.7.0...HEAD)
 
-- include build:wc in build script so publint finds dist-wc
-- add --modal-flex-direction css variable
+- NumberStepper: new
+- Carousel: slide snippet, any width, arrows, loop, announce, pause on hover and focus
+- Progress: progressbar role, milestones
+- Sheet: full-size slide, closeIcon and closeLabel, focus trap across slots and shadow roots,
+focus return
+- Modal, CommandMenu, Gallery, Sheet: one counted scroll lock
+- Input, InputButton, Button, Pill, Loader: a11y and disabled-state fixes
+
+## [0.7.0](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.6.2...0.7.0) - 27 August 2026
 
 ## [0.6.2](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.6.1...0.6.2) - 11 August 2026
 
