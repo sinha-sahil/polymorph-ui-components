@@ -49,6 +49,9 @@
       "default": "./dist-wc/index.js"
     }
   },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist",
     "dist-wc",

@@ -25,7 +25,9 @@
   let sheetPanel: HTMLDivElement | null = $state(null);
   let openerElement: HTMLElement | null = null;
 
-  let fadeDuration = $derived(prefersReducedMotion.current ? 0 : 200);
+  function fadeDuration(): number {
+    return prefersReducedMotion.current ? 0 : 200;
+  }
 
   let flyParams = $derived.by(() => {
     const duration = prefersReducedMotion.current ? 0 : 300;
@@ -146,7 +148,7 @@
     onkeydown={handleKeyDown}
     role="presentation"
     data-pw={testId}
-    transition:fade={{ duration: fadeDuration }}
+    transition:fade={{ duration: fadeDuration() }}
   >
     <div
       bind:this={sheetPanel}

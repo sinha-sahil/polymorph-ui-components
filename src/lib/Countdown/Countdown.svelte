@@ -40,6 +40,10 @@
     animation-fill-mode: forwards;
   }
 
+  .countdown-fill:dir(rtl) {
+    transform-origin: var(--countdown-origin, right);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .countdown-fill {
       animation-timing-function: steps(var(--countdown-steps), end);
