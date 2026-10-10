@@ -50,7 +50,8 @@
     }
   },
   "sideEffects": [
-    "**/*.css"
+    "**/*.css",
+    "**/*.wc.svelte"
   ],
   "files": [
     "dist",
