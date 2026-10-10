@@ -2,17 +2,18 @@
 based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.9.0...HEAD)
+## [Unreleased](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.10.0...HEAD)
 
-- Confetti: new one-shot burst from the top, middle, bottom or sides, with onconfettiend
-- Confetti: five colour variables; renders nothing under reduced motion and ends at once
-- Countdown: new bar that drains over a duration and fires oncountdownend; a named timer
-with ariaLabel, stepping once a second under reduced motion
-- Modal: role=dialog with aria-modal and ariaLabel; an action moves focus in and back, Tab and
-Escape stay with it, and focus returns to a surrounding dialog when it came from outside
-- Sheet: focuses its panel from an action instead of tick, leaves focus with a dialog that
-opened inside, and remembers the opener from focusin
-- Modal, Toast: no motion under reduced motion
+- package: sideEffects lists only CSS, so bundlers can leave out
+components an app doesn't use up front, and lazily loaded code can
+take them
+- Countdown: drains toward the right on right-to-left pages;
+--countdown-origin still overrides
+- ModalAnimation and Sheet: transition params are functions, not
+$derived, since an outro reads them after the component is destroyed;
+switching reduced motion while open logged derived_inert
+
+## [0.10.0](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.9.0...0.10.0) - 27 September 2026
 
 ## [0.9.0](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.8.0...0.9.0) - 26 September 2026
 
