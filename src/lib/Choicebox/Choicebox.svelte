@@ -63,6 +63,7 @@
 <style>
   .choicebox {
     display: var(--choicebox-display, flex);
+    flex-direction: var(--choicebox-flex-direction, row);
     align-items: var(--choicebox-align-items, center);
     padding: var(--choicebox-padding, 16px);
     border: var(--choicebox-border, 2px solid currentColor);

@@ -4,6 +4,7 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this proj
 
 ## [Unreleased](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.10.1...HEAD)
 
+- Choicebox: `--choicebox-flex-direction`, so the indicator can come before the content
 - package: mark *.wc.svelte as side effects; the wc entry only imports them to register
 - release: the 0.10.1 wc build came out empty, so the GitHub release upload failed
 

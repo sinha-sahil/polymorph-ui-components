@@ -4,6 +4,7 @@
   let radioSelection = $state(0);
   let checkA = $state(false);
   let checkB = $state(false);
+  let checkC = $state(false);
 
   function selectRadio(index: number): void {
     radioSelection = index;
@@ -41,7 +42,20 @@
   </Choicebox>
 </div>
 
+<h3>Indicator first</h3>
+<div class="demo-row">
+  <Choicebox mode="checkbox" showIndicator classes="indicator-first" bind:selected={checkC}>
+    I agree to the terms and conditions
+  </Choicebox>
+</div>
+
 <style>
+  :global(.indicator-first) {
+    --choicebox-flex-direction: row-reverse;
+    --choicebox-border: none;
+    --choicebox-padding: 0;
+  }
+
   .choice-title {
     font-weight: 600;
     font-size: 16px;
