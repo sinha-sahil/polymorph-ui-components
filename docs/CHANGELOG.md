@@ -2,11 +2,13 @@
 based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.10.1...HEAD)
+## [Unreleased](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.10.2...HEAD)
 
-- Choicebox: `--choicebox-flex-direction`, so the indicator can come before the content
-- package: mark *.wc.svelte as side effects; the wc entry only imports them to register
-- release: the 0.10.1 wc build came out empty, so the GitHub release upload failed
+- Choicebox: --choicebox-flex-direction (default row); row-reverse puts the indicator first
+- docs: the variable in the Choicebox table and the changelog
+- demo: an indicator-first terms box
+
+## [0.10.2](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.10.1...0.10.2) - 10 October 2026
 
 ## [0.10.1](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.10.0...0.10.1) - 10 October 2026
 
