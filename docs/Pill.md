@@ -57,7 +57,7 @@ Define variant classes in your app's CSS that set Pill CSS variables, then pass 
 | text        | `string`  | Yes      | `-`     | The label text displayed inside the pill. Long text is truncated with an ellipsis when it exceeds the maximum width.                                                   |
 | dismissible | `boolean` | No       | `false` | When true, shows a small X button after the text that triggers the ondismiss event when clicked.                                                                       |
 | dismissLabel | `string` | No      | `'Dismiss'` | Accessible name of the dismiss button. Name what it removes, e.g. `Remove SAVE10`, so several dismissible pills stay distinguishable to screen readers.        |
-| disabled    | `boolean` | No       | `false` | When true, the pill appears dimmed (opacity 0.4), shows a not-allowed cursor, and ignores all click and dismiss interactions.                                          |
+| disabled    | `boolean` | No       | `false` | When true, the pill appears dimmed (opacity 0.4), shows a not-allowed cursor, and ignores all click and dismiss interactions. The dismiss button stays focusable, marked `aria-disabled`, so a pill disabled while its button has focus keeps it. |
 | testId      | `string`  | No       | `-`     | Value for the data-pw attribute, used for end-to-end testing selectors. The dismiss button receives `{testId}-dismiss`.                                                |
 | classes     | `string`  | No       | `-`     | CSS class string applied to the component's top-level element. Useful for theming — define classes with CSS variable overrides and pass them to create variant styles. |
 
@@ -68,6 +68,14 @@ Svelte 5 Snippet props — pass content blocks to the component.
 | Snippet     | Type      | Description                               |
 | ----------- | --------- | ----------------------------------------- |
 | dismissIcon | `Snippet` | Custom icon for the dismiss/close button. |
+
+## Methods
+
+Exported methods that can be called via `bind:this` on the component instance.
+
+| Method    | Signature    | Description                                                                                                                                                                  |
+| --------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `focus()` | `() => void` | Focuses the pill when it is interactive (`onclick`), otherwise its dismiss button. Use it to move focus to the next pill when one is dismissed, so focus doesn't fall to the page. |
 
 ## Events
 
@@ -101,6 +109,12 @@ Override these custom properties to theme the component.
 | `--pill-dismiss-size`        | `14px`                                    | width, height    | Size of the dismiss button icon (X).                                      |
 | `--pill-dismiss-color`       | `currentColor`                            | color            | Color of the dismiss button icon.                                         |
 | `--pill-dismiss-hover-color` | `var(--pill-dismiss-color, currentColor)` | color            | Color of the dismiss button icon on hover.                                |
+
+## Accessibility
+
+- The dismiss button is named by `dismissLabel`; name what it removes so several pills stay distinguishable.
+- A dismissed pill takes its focused dismiss button with it. Move focus on with `focus()` on the next pill, or on the field that adds pills.
+- When disabled, the dismiss button stays in the tab order with `aria-disabled="true"` and ignores presses, as a disabled interactive pill already does with `tabindex="0"`.
 
 ## Internal Dependencies
 

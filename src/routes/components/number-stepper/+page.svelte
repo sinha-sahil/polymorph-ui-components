@@ -1,10 +1,13 @@
 <script lang="ts">
+  import Button from '$lib/Button/Button.svelte';
   import NumberStepper from '$lib/NumberStepper/NumberStepper.svelte';
   import deleteSvg from '$lib/assets/delete.svg?raw';
   import minusSvg from '$lib/assets/minus.svg?raw';
 
   let quantity = $state(2);
   let lineQuantity = $state(1);
+  let seats = $state(1);
+  let seatsStepper: ReturnType<typeof NumberStepper> | null = $state(null);
 
   function wait(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -52,4 +55,17 @@
 <h3>Disabled</h3>
 <div class="demo-row" style="align-items: center;">
   <NumberStepper value={3} disabled />
+</div>
+
+<h3>Focus from code</h3>
+<div class="demo-row" style="align-items: center;">
+  <NumberStepper
+    bind:this={seatsStepper}
+    value={seats}
+    min={1}
+    max={9}
+    ariaLabel="Seats"
+    onchange={(next) => (seats = next)}
+  />
+  <Button text="Focus seats" onclick={() => seatsStepper?.focus()} />
 </div>

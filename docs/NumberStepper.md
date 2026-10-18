@@ -52,6 +52,14 @@ Svelte 5 Snippet props — pass content blocks to the component.
 | decrementIcon | `Snippet<[number]>` | Icon inside the decrement button. Receives the current value. Defaults to a minus icon.  |
 | incrementIcon | `Snippet<[number]>` | Icon inside the increment button. Receives the current value. Defaults to a plus icon.   |
 
+## Methods
+
+Exported methods that can be called via `bind:this` on the component instance.
+
+| Method    | Signature    | Description                                                                                                                                                        |
+| --------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `focus()` | `() => void` | Focuses the first enabled button: decrement, or increment when decrement is disabled. Does nothing when both are disabled. Use it to move focus onto the stepper, e.g. when the item before it is removed. |
+
 ## Events
 
 | Event    | Type                                        | Description                                                                                                                         |
@@ -90,6 +98,7 @@ Override these custom properties to theme the component.
 - The value is an `aria-live="polite"` region: the new value is read after each change, and `loadingLabel` while a change is pending.
 - `aria-busy` is set on the group while a change is pending, and presses are ignored so a second press can't race the first. The buttons stay enabled and focusable (dimmed by `--number-stepper-button-disabled-opacity`), so focus stays where it was.
 - At `min` or `max` the matching button is disabled; if it had focus, focus moves to the other button.
+- `focus()` moves focus onto the stepper from outside, such as when the row that had focus is removed.
 
 ## Internal Dependencies
 

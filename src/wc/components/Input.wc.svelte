@@ -11,6 +11,7 @@
       infoMessage: { type: 'String', attribute: 'info-message' },
       validators: { type: 'Object' },
       disable: { type: 'Boolean', reflect: true },
+      readOnly: { type: 'Boolean', reflect: true, attribute: 'read-only' },
       validationPattern: { type: 'Object' },
       inProgressPattern: { type: 'Object' },
       addFocusColor: { type: 'Boolean', attribute: 'add-focus-color' },

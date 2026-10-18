@@ -12,6 +12,7 @@
     infoMessage = '',
     validators = [],
     disable = false,
+    readOnly = false,
     validationPattern = null,
     inProgressPattern = null,
     addFocusColor = false,
@@ -227,6 +228,7 @@
       class:action-input={actionInput}
       style="--input-focus-border-width: {addFocusColor ? 1 : 0}px;"
       disabled={disable}
+      readonly={readOnly}
       bind:this={inputElement}
       maxlength={dataType === 'tel' ? null : maxLength}
       minlength={minLength}
@@ -254,6 +256,7 @@
       data-pw={testId}
       class:action-input={actionInput}
       disabled={disable}
+      readonly={readOnly}
       bind:this={inputElement}
       maxlength={dataType === 'tel' ? null : maxLength}
       minlength={minLength}

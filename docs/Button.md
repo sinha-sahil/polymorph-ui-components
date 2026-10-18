@@ -1,6 +1,6 @@
 # Button
 
-An action button that supports two loader modes: a circular spinner overlay or a horizontal progress bar that fills over time. The button text supports HTML content. When `showLoader` is true with `loaderType='ProgressBar'`, clicking the button triggers a progress bar animation and prevents further clicks until complete. Includes icon and children snippet support for rendering custom content.
+An action button that supports two loader modes: a circular spinner overlay or a horizontal progress bar that fills over time. The button text supports HTML content. When `showLoader` is true with `loaderType='ProgressBar'`, clicking the button triggers a progress bar animation and prevents further clicks until complete. Includes icon and children snippet support for rendering custom content. With `ariaDisabled`, a busy button ignores presses but keeps focus and its place in the tab order.
 
 ## Usage
 
@@ -32,6 +32,14 @@ An action button that supports two loader modes: a circular spinner overlay or a
 </Button>
 ```
 
+### Busy, Still Focusable
+
+```svelte
+<Button ariaDisabled={saving} onclick={save}>
+  {saving ? 'Saving…' : 'Save'}
+</Button>
+```
+
 ## Props
 
 | Prop            | Type                              | Required | Default    | Description                                                                                                                                                                                                                |
@@ -47,6 +55,7 @@ An action button that supports two loader modes: a circular spinner overlay or a
 | ariaLabel       | `string`                          | No       | `-`        | Accessible label for the button. Used when the button has only an icon and no visible text.                                                                                                                                |
 | ariaExpanded    | `boolean`                         | No       | `-`        | Sets `aria-expanded` on the button element. Use when the button controls an expandable region (dropdown, accordion, etc.).                                                                                                 |
 | ariaSelected    | `boolean`                         | No       | `-`        | Sets `aria-selected` on the button element. Use when the button represents a selectable option (e.g., inside an autocomplete dropdown or tab-like pattern).                                                                |
+| ariaDisabled    | `boolean`                         | No       | `false`    | Sets `aria-disabled="true"` and ignores clicks, including a submit or reset button's form action, while the native button stays enabled. The button keeps focus and its place in the tab order, so use it for an action that is busy or briefly unavailable, where `disabled` would drop focus to the page. Styled by the `--button-disabled-*` variables. |
 | role            | `string`                          | No       | `-`        | Overrides the default ARIA role of the button element. Use `'option'` when the button represents a selectable item in a listbox pattern, or `'tab'` for tab-like navigation.                                               |
 | classes         | `string`                          | No       | `-`        | CSS class string applied to the component's top-level element. Useful for theming — define classes with CSS variable overrides (e.g., `.btn-primary { --button-color: #0070f3; }`) and pass them to create variant styles. |
 
@@ -71,7 +80,7 @@ Exported methods that can be called via `bind:this` on the component instance.
 
 | Event   | Type                             | Description                                                                                                                     |
 | ------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| onclick | `(event: MouseEvent) => void`    | Fires when the button is clicked. Does NOT fire when `showProgressBar` is active (clicks are silently ignored during progress). |
+| onclick | `(event: MouseEvent) => void`    | Fires when the button is clicked. Does NOT fire when `showProgressBar` is active (clicks are silently ignored during progress) or when `ariaDisabled` is true. |
 | onkeyup | `(event: KeyboardEvent) => void` | Fires when a key is released while the button has focus. Defaults to a no-op `() => {}` (always fires, unlike other events which default to undefined). |
 
 ## CSS Variables
@@ -115,7 +124,7 @@ Override these custom properties to theme the component.
 | `--button-icon-display`                     | `-`                            | display            | Display property of the icon container.                                                                   |
 | `--button-text-order`                       | `3`                            | order              | Flex order of the text relative to loader/icon.                                                           |
 | `--button-text-display`                     | `-`                            | display            | Display property of the text container.                                                                   |
-| `--button-hover-color`                      | inherits `--button-color`      | background         | Background color on hover. Hover styles never apply to a disabled button.                                 |
+| `--button-hover-color`                      | inherits `--button-color`      | background         | Background color on hover. Hover styles never apply to a disabled or `ariaDisabled` button.               |
 | `--button-hover-text-color`                 | inherits `--button-text-color` | color              | Text color on hover.                                                                                      |
 | `--button-hover-border`                     | inherits `--button-border`     | border             | Border style on hover.                                                                                    |
 | `--button-hover-transform`                  | `-`                            | transform          | CSS transform applied on hover (e.g., `scale(1.05)`). Allows hover scale effects without `:global()`.    |
@@ -123,6 +132,11 @@ Override these custom properties to theme the component.
 | `--button-active-transform`                 | `-`                            | transform          | CSS transform applied on active/pressed state (e.g., `scale(0.95)`). Allows press-down effects without `:global()`. |
 | `--button-progress-loader-background-color` | `#00000030`                    | background         | Background color of the progress bar overlay.                                                             |
 | `--button-progress-loader-duration`         | `8s`                           | animation-duration | Duration of the progress bar fill animation.                                                              |
+
+## Accessibility
+
+- `disabled`, `enable={false}` and `showLoader` disable the native button: it leaves the tab order, and if it had focus, focus falls to the page.
+- `ariaDisabled` marks the button `aria-disabled="true"` and ignores clicks, but leaves it enabled, so focus stays on it while an action is busy and screen readers announce it as unavailable.
 
 ## Type Reference
 
@@ -157,6 +171,8 @@ Tag: `<pui-button>`
   <span>Custom <strong>content</strong></span>
 </pui-button>
 ```
+
+`aria-disabled`, like `aria-expanded` and `aria-selected`, is a presence-only boolean attribute: any value turns it on, `aria-disabled="false"` included. Remove the attribute to turn it off.
 
 ### Slots
 

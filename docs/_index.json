@@ -25,7 +25,7 @@
   },
   {
     "name": "Button",
-    "description": "An action button that supports two loader modes (circular spinner or progress bar), HTML text content, icon and children snippets, aria-expanded for dropdown triggers, and a disabled state. The progress bar mode prevents clicks during animation."
+    "description": "An action button that supports two loader modes (circular spinner or progress bar), HTML text content, icon and children snippets, aria-expanded for dropdown triggers, and a disabled state, or an `ariaDisabled` one that ignores presses but keeps focus. The progress bar mode prevents clicks during animation."
   },
   {
     "name": "Calendar",
@@ -133,7 +133,7 @@
   },
   {
     "name": "Input",
-    "description": "A text input field with built-in validation for email, phone, password, and text patterns. Validates automatically using RegExp props plus optional custom validator functions. Supports text transformers and view presentation formatting. Can render as a textarea."
+    "description": "A text input field with built-in validation for email, phone, password, and text patterns. Validates automatically using RegExp props plus optional custom validator functions. Supports text transformers and view presentation formatting. Can render as a textarea, and can be `readOnly`, keeping focus while typing is blocked."
   },
   {
     "name": "InputButton",
@@ -177,7 +177,7 @@
   },
   {
     "name": "NumberStepper",
-    "description": "A compact − value + control for stepping a number such as a cart quantity. Controlled: `onchange` receives the requested value and the parent updates `value`. When `onchange` returns a Promise, a loader shows and presses are ignored until it settles, while focus stays on the buttons. Icon snippets receive the value, so decrement can become a trash icon at the last step."
+    "description": "A compact − value + control for stepping a number such as a cart quantity. Controlled: `onchange` receives the requested value and the parent updates `value`. When `onchange` returns a Promise, a loader shows and presses are ignored until it settles, while focus stays on the buttons. Icon snippets receive the value, so decrement can become a trash icon at the last step. `focus()` moves focus to its first enabled button."
   },
   {
     "name": "OverlayAnimation",
@@ -193,7 +193,7 @@
   },
   {
     "name": "Pill",
-    "description": "A compact label/tag element for displaying status, categories, or metadata. Supports an optional icon snippet and click interaction with keyboard accessibility (role=button, Enter/Space). Optionally clickable when onclick is provided. When dismissible, `dismissLabel` names the dismiss button (e.g. `Remove SAVE10`)."
+    "description": "A compact label/tag element for displaying status, categories, or metadata. Supports an optional icon snippet and click interaction with keyboard accessibility (role=button, Enter/Space). Optionally clickable when onclick is provided. When dismissible, `dismissLabel` names the dismiss button (e.g. `Remove SAVE10`), which stays focusable when the pill is disabled. `focus()` focuses the pill, or its dismiss button."
   },
   {
     "name": "Progress",
@@ -221,7 +221,7 @@
   },
   {
     "name": "Sheet",
-    "description": "A panel that slides in from any edge of the screen by its full size. Includes a header (h2 title and close button with a `closeIcon` snippet and `closeLabel`), scrollable content, and optional footer. Page scroll locks while open; focus is trapped across slots and shadow roots and returned on close; Escape dismisses; motion is skipped for reduced-motion users. The open prop is bindable."
+    "description": "A panel that slides in from any edge of the screen by its full size. Includes a header (h2 title and close button with a `closeIcon` snippet and `closeLabel`), scrollable content, and optional footer. Page scroll locks while open; focus is trapped across slots and shadow roots and returned on close; Escape dismisses; motion is skipped for reduced-motion users. The open prop is bindable. `getScrollElement()` returns the element that scrolls its content."
   },
   {
     "name": "Shimmer",

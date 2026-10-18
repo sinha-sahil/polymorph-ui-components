@@ -17,6 +17,7 @@ export type OptionalButtonProperties = {
   ariaLabel?: string;
   ariaExpanded?: boolean;
   ariaSelected?: boolean;
+  ariaDisabled?: boolean;
   role?: string;
   disabled?: boolean;
   classes?: string;

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   import Button from '$lib/Button/Button.svelte';
   import Sheet from '$lib/Sheet/Sheet.svelte';
   import chevronRightSvg from '$lib/assets/chevron-right.svg?raw';
@@ -10,6 +11,22 @@
   let showRaw = $state(false);
   let showFooter = $state(false);
   let showCustomClose = $state(false);
+  let showLong = $state(false);
+  let longSheet: ReturnType<typeof Sheet> | null = $state(null);
+  let scrollArea = $state('Scroll area: none');
+
+  const SECTIONS = Array.from({ length: 30 }, (_, index) => `Section ${index + 1}`);
+
+  function showScrollArea(): void {
+    const scroller = untrack(() => longSheet?.getScrollElement() ?? null);
+    scrollArea =
+      scroller === null ? 'Scroll area: none' : `Scroll area: ${scroller.clientHeight} px`;
+  }
+
+  function jumpToEnd(): void {
+    const scroller = longSheet?.getScrollElement() ?? null;
+    scroller?.scrollTo({ top: scroller.scrollHeight });
+  }
 </script>
 
 <div class="page-header">
@@ -96,6 +113,22 @@
     {/snippet}
     {#snippet content()}
       <p>The close button uses a custom icon and is announced as "Close cart".</p>
+    {/snippet}
+  </Sheet>
+</div>
+
+<h3>Long content</h3>
+<div class="demo-row">
+  <Button text="Open long" onclick={() => (showLong = true)} />
+  <Sheet bind:this={longSheet} bind:open={showLong} side="right" title="Contents">
+    {#snippet content()}
+      <p {@attach showScrollArea}>{scrollArea}</p>
+      {#each SECTIONS as section (section)}
+        <p>{section}</p>
+      {/each}
+    {/snippet}
+    {#snippet footer()}
+      <Button text="Jump to end" onclick={jumpToEnd} />
     {/snippet}
   </Sheet>
 </div>
