@@ -14,6 +14,7 @@
       ariaLabel: { type: 'String', reflect: true, attribute: 'aria-label' },
       ariaExpanded: { type: 'Boolean', attribute: 'aria-expanded' },
       ariaSelected: { type: 'Boolean', attribute: 'aria-selected' },
+      ariaDisabled: { type: 'Boolean', attribute: 'aria-disabled' },
       role: { type: 'String', reflect: true },
       classes: { type: 'String' },
       onclick: { type: 'Object' },

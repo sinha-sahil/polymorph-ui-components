@@ -30,6 +30,14 @@
   let canDecrement = $derived(!disabled && value - step >= min);
   let canIncrement = $derived(!disabled && value + step <= max);
 
+  export function focus(): void {
+    if (canDecrement) {
+      decrementButton?.getButtonRef()?.focus();
+    } else if (canIncrement) {
+      incrementButton?.getButtonRef()?.focus();
+    }
+  }
+
   async function change(next: number, pressed: ReturnType<typeof Button> | null): Promise<void> {
     if (pending) {
       return;

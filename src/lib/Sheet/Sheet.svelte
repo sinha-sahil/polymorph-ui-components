@@ -23,7 +23,12 @@
 
   let overlayDiv: HTMLDivElement | null = $state(null);
   let sheetPanel: HTMLDivElement | null = $state(null);
+  let sheetContent: HTMLDivElement | null = $state(null);
   let openerElement: HTMLElement | null = null;
+
+  export function getScrollElement(): HTMLElement | null {
+    return sheetContent;
+  }
 
   function fadeDuration(): number {
     return prefersReducedMotion.current ? 0 : 200;
@@ -185,8 +190,10 @@
           {/if}
         </div>
       {/if}
-      <div class="sheet-content">
-        {@render content()}
+      <div class="sheet-content" bind:this={sheetContent}>
+        {#if sheetContent !== null}
+          {@render content()}
+        {/if}
       </div>
       {#if typeof footer === 'function'}
         <div class="sheet-footer">

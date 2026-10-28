@@ -47,6 +47,16 @@ Svelte 5 Snippet props — pass content blocks to the component.
 | footer  | `Snippet` | Optional. Content rendered in a fixed footer area at the bottom of the sheet panel, separated from the content by a border. Useful for action buttons or summary information. |
 | closeIcon | `Snippet` | Optional. Replaces the built-in close icon inside the close button. Sized by `--sheet-close-icon-size`.                                                                   |
 
+## Methods
+
+Exported methods that can be called via `bind:this` on the component instance.
+
+| Method               | Signature                    | Description                                                                                                                                                                                             |
+| -------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `getScrollElement()` | `() => HTMLElement \| null` | Returns the element that scrolls the content snippet, or `null` while the sheet is closed. The header and footer sit outside it. The content renders once this element is in place, so content can read it as it mounts. Use it to measure, observe or scroll the content without querying the DOM. |
+
+The content snippet renders once the scrolling element is in place, so its own actions and attachments can call `getScrollElement()` as they mount. It renders on the client, after the sheet mounts, so it isn't part of server-rendered output.
+
 ## Events
 
 | Event   | Type         | Description                                                                                                                                                                                            |

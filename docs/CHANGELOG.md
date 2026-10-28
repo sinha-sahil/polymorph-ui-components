@@ -4,6 +4,12 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this proj
 
 ## [Unreleased](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.10.2...HEAD)
 
+- Input: `readOnly`, so a field keeps focus while its value can't be typed over
+- Button: `ariaDisabled`, so a busy button ignores presses but keeps focus
+- NumberStepper: `focus()`, which focuses its first enabled button
+- Pill: `focus()`, and a disabled pill's dismiss button stays focusable with `aria-disabled`
+- Sheet: `getScrollElement()`, the element that scrolls its content, which the content can read as it mounts; the content renders on the client once it's in place
+- docs: Input's `focus()` also smooth-scrolls the field to the middle of its scroll container
 - Choicebox: --choicebox-flex-direction (default row); row-reverse puts the indicator first
 - docs: the variable in the Choicebox table and the changelog
 - demo: an indicator-first terms box

@@ -12,3 +12,8 @@
 <div class="demo-row" style="max-width: 400px;">
   <Input bind:value={inputValue} placeholder="Enter your name" label="Name" />
 </div>
+
+<h3>Read-only</h3>
+<div class="demo-row" style="max-width: 400px;">
+  <Input value="ORD-1042" label="Order number" readOnly />
+</div>

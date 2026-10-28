@@ -1,6 +1,6 @@
 # Input
 
-A text input field with built-in validation for email, phone (tel), password, and text patterns. Validates automatically using `validationPattern` and `inProgressPattern` RegExp props, plus optional custom validator functions. Shows error messages when validation fails and info messages below the input. For `tel` dataType, automatically strips non-digit characters and enforces `maxLength`. Supports text transformers that modify the raw input value and view presentation transformers that format the displayed value (e.g., adding spaces to a card number). The validation state (`Valid` / `InProgress` / `Invalid`) is computed reactively and reported via `onstatechange`. Can render as a `<textarea>` when `useTextArea` is true.
+A text input field with built-in validation for email, phone (tel), password, and text patterns. Validates automatically using `validationPattern` and `inProgressPattern` RegExp props, plus optional custom validator functions. Shows error messages when validation fails and info messages below the input. For `tel` dataType, automatically strips non-digit characters and enforces `maxLength`. Supports text transformers that modify the raw input value and view presentation transformers that format the displayed value (e.g., adding spaces to a card number). The validation state (`Valid` / `InProgress` / `Invalid`) is computed reactively and reported via `onstatechange`. Can render as a `<textarea>` when `useTextArea` is true. With `readOnly`, the field keeps focus while its value can't be typed over.
 
 ## Usage
 
@@ -10,6 +10,12 @@ A text input field with built-in validation for email, phone (tel), password, an
 </script>
 
 <Input value={'...'} />
+```
+
+### Read-only While Submitting
+
+```svelte
+<Input bind:value={code} ariaLabel="Coupon code" readOnly={submitting} />
 ```
 
 ## Props
@@ -24,6 +30,7 @@ A text input field with built-in validation for email, phone (tel), password, an
 | infoMessage          | `string \| null`                                                       | No       | `''`     | Informational text displayed below the input regardless of validation state. Hidden when actionInput is true.                                                                                                             |
 | validators           | `CustomValidator[]`                                                    | No       | `[]`     | Array of custom validator functions. Each receives the input value and current validation state, and returns a new ValidationState. Validators run after the built-in validation.                                         |
 | disable              | `boolean`                                                              | No       | `false`  | Whether the input is disabled (greyed out and non-interactive).                                                                                                                                                           |
+| readOnly             | `boolean`                                                              | No       | `false`  | Makes the field read-only (HTML `readonly`): it keeps focus and its place in the tab order, and its text can be selected and copied, but typing doesn't change it. Use it to hold a value still while it is submitted, where `disable` would drop focus to the page. |
 | validationPattern    | `RegExp \| null`                                                       | No       | `null`   | RegExp that the input value must match to be considered 'Valid'. If null, no pattern validation is applied.                                                                                                               |
 | inProgressPattern    | `RegExp \| null`                                                       | No       | `null`   | RegExp that matches partial/incomplete input. If the value matches this pattern (but not validationPattern), the state is 'InProgress' instead of 'Invalid'.                                                              |
 | addFocusColor        | `boolean`                                                              | No       | `false`  | When true, adds a 1px focus border to the input. Used with actionInput mode.                                                                                                                                              |
@@ -53,7 +60,7 @@ Exported methods that can be called via `bind:this` on the component instance.
 
 | Method          | Signature                                               | Description                                                                                                            |
 | --------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `focus()`       | `() => void`                                            | Programmatically focuses the underlying `<input>` or `<textarea>` element.                                             |
+| `focus()`       | `() => void`                                            | Programmatically focuses the underlying `<input>` or `<textarea>` element, then smooth-scrolls it to the middle of its scroll container (`scrollIntoView({ behavior: 'smooth', block: 'center' })`). To focus without that scroll, call `focus()` on `getInputRef()`. |
 | `blur()`        | `() => void`                                            | Programmatically removes focus from the underlying `<input>` or `<textarea>` element.                                  |
 | `getInputRef()` | `() => HTMLInputElement \| HTMLTextAreaElement \| null` | Returns a reference to the underlying DOM element. Use for custom focus management or third-party library integration. |
 
@@ -117,6 +124,7 @@ Override these custom properties to theme the component.
 
 - The visible `label` is associated with the field by id, so it names the field and clicking it focuses the field.
 - Use `ariaLabel` when there is no visible label; a placeholder alone is not an accessible name.
+- `disable` takes the field out of the tab order, and focus falls to the page if the field had it. `readOnly` blocks typing but keeps the field focusable.
 - Validation decides "still typing" by checking focus within the field's own root, so it works inside a shadow root too.
 
 ## Type Reference

@@ -13,6 +13,7 @@
     ariaLabel,
     ariaExpanded,
     ariaSelected,
+    ariaDisabled = false,
     role,
     onclick,
     onkeyup = () => {},
@@ -31,6 +32,10 @@
   let isDisabled = $derived(!enable || disabled || showLoader);
 
   function handleButtonClick(event: MouseEvent): void {
+    if (ariaDisabled) {
+      event.preventDefault();
+      return;
+    }
     if (showProgressBar) {
       return;
     }
@@ -47,7 +52,7 @@
   {/if}
   <button
     bind:this={buttonElement}
-    class:disabled={isDisabled}
+    class:disabled={isDisabled || ariaDisabled}
     onclick={handleButtonClick}
     {onkeyup}
     disabled={isDisabled}
@@ -56,6 +61,7 @@
     aria-label={ariaLabel}
     aria-expanded={ariaExpanded}
     aria-selected={ariaSelected}
+    aria-disabled={ariaDisabled ? true : null}
     {role}
   >
     {#if showLoader && loaderType === 'Circular'}
@@ -131,7 +137,7 @@
     display: var(--button-text-display);
   }
 
-  button:hover:not(:disabled) {
+  button:hover:not(.disabled) {
     background: var(--button-hover-color, var(--button-color, #18181b));
     color: var(--button-hover-text-color, var(--button-text-color, #ffffff));
     border: var(--button-hover-border, var(--button-border, none));
@@ -139,7 +145,7 @@
     opacity: var(--button-hover-opacity, var(--button-opacity, 1));
   }
 
-  button:active:not(:disabled) {
+  button:active:not(.disabled) {
     transform: var(--button-active-transform);
   }
 

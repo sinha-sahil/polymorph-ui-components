@@ -16,6 +16,16 @@
   }: PillProperties = $props();
 
   let interactive = $derived(typeof onclick === 'function');
+  let pillElement: HTMLDivElement | null = $state(null);
+  let dismissButton: ReturnType<typeof Button> | null = $state(null);
+
+  export function focus(): void {
+    if (interactive) {
+      pillElement?.focus();
+    } else if (dismissible) {
+      dismissButton?.getButtonRef()?.focus();
+    }
+  }
 
   function handleClick(event: MouseEvent): void {
     if (disabled) {
@@ -35,15 +45,13 @@
 
   function handleDismiss(event: MouseEvent): void {
     event.stopPropagation();
-    if (disabled) {
-      return;
-    }
     ondismiss?.();
   }
 </script>
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <div
+  bind:this={pillElement}
   class="pill {classes ?? ''}"
   class:disabled
   onclick={interactive ? handleClick : null}
@@ -57,7 +65,8 @@
   {#if dismissible}
     <div class="pill-dismiss">
       <Button
-        {disabled}
+        bind:this={dismissButton}
+        ariaDisabled={disabled}
         onclick={handleDismiss}
         ariaLabel={dismissLabel}
         {...typeof testId === 'string' ? { testId: `${testId}-dismiss` } : {}}

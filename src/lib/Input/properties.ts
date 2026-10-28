@@ -17,6 +17,7 @@ export type OptionalInputProperties = {
   infoMessage?: string | null;
   validators?: CustomValidator[];
   disable?: boolean;
+  readOnly?: boolean;
   validationPattern?: RegExp | null;
   inProgressPattern?: RegExp | null;
   addFocusColor?: boolean;
