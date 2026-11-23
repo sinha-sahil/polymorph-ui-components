@@ -7,6 +7,7 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this proj
 - Choicebox: --choicebox-flex-direction (default row); row-reverse puts the indicator first
 - docs: the variable in the Choicebox table and the changelog
 - demo: an indicator-first terms box
+- Choicebox: in `radio` mode, clicking an already-selected card fires `onclick(true)` so pickers can confirm the current choice
 
 ## [0.10.2](https://github.com/sinha-sahil/polymorph-ui-components/compare/0.10.1...0.10.2) - 10 October 2026
 

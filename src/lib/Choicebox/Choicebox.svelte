@@ -18,6 +18,7 @@
       return;
     }
     if (mode === 'radio' && selected) {
+      onclick?.(true);
       return;
     }
     selected = !selected;

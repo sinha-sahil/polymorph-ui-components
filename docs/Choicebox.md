@@ -1,6 +1,6 @@
 # Choicebox
 
-A large-target selection card used for prominent single or multi-choice selections. Renders a `children` snippet inside a clickable, keyboard-accessible card. The `selected` prop is bindable and the `onclick` event fires with the new selection state. Supports `radio` and `checkbox` modes, which set the element's ARIA role and selection behavior (in `radio` mode a selected card cannot be deselected by clicking it again).
+A large-target selection card used for prominent single or multi-choice selections. Renders a `children` snippet inside a clickable, keyboard-accessible card. The `selected` prop is bindable and the `onclick` event fires with the new selection state. Supports `radio` and `checkbox` modes, which set the element's ARIA role and selection behavior (in `radio` mode a selected card cannot be deselected by clicking it again, but clicking it still fires `onclick` with `true`).
 
 ## Usage
 
@@ -19,7 +19,7 @@ A large-target selection card used for prominent single or multi-choice selectio
 | Prop          | Type                    | Required | Default     | Description                                                                                                                                                            |
 | ------------- | ----------------------- | -------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | selected      | `boolean`               | No       | `false`     | The current selection state of the choicebox. Bindable.                                                                                                                |
-| mode          | `'radio' \| 'checkbox'` | No       | `'radio'`   | Sets the element's ARIA role and selection behavior. In `radio` mode a selected card cannot be deselected by clicking it again; `checkbox` mode toggles freely.        |
+| mode          | `'radio' \| 'checkbox'` | No       | `'radio'`   | Sets the element's ARIA role and selection behavior. In `radio` mode a selected card cannot be deselected by clicking it again (`onclick` still fires with `true`, so a picker can confirm the current choice); `checkbox` mode toggles freely.        |
 | disabled      | `boolean`               | No       | `false`     | When true, the choicebox is non-interactive and visually dimmed.                                                                                                       |
 | showIndicator | `boolean`               | No       | `false`     | Draw the radio dot / checkbox tick inside the card. Off by default so cards that supply their own selected affordance are unaffected.                                  |
 | testId        | `string`                | No       | `undefined` | Value for the `data-pw` attribute used in Playwright test selectors.                                                                                                   |
@@ -35,7 +35,7 @@ A large-target selection card used for prominent single or multi-choice selectio
 
 | Event   | Type                          | Description                                                                                                                                                           |
 | ------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| onclick | `(selected: boolean) => void` | Fires after the selection state changes. Receives the new boolean selected value (true = selected, false = deselected). Does not fire when the choicebox is disabled. |
+| onclick | `(selected: boolean) => void` | Fires on click or Enter/Space. Receives the selected value after the click (true = selected, false = deselected). In `radio` mode it also fires with `true` when the card is already selected. Does not fire when the choicebox is disabled. |
 
 ## CSS Variables
 
