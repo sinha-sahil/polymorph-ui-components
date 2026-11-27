@@ -346,11 +346,12 @@ import type {
 ## 🛠 Development
 
 ```bash
-pnpm install   # install dependencies
-pnpm dev       # dev server with hot reload (component playground)
-pnpm build     # build library (vite + svelte-package + publint)
-pnpm test      # integration + unit tests
-pnpm lint      # formatting + lint
+pnpm install                            # install dependencies
+pnpm exec playwright install chromium   # browser for pnpm test (again after a Playwright upgrade)
+pnpm dev                                # dev server with hot reload (component playground)
+pnpm build                              # build library (vite + svelte-package + publint)
+pnpm test                               # Playwright tests in tests/ against a build of the playground
+pnpm lint                               # formatting + lint
 ```
 
 ```
