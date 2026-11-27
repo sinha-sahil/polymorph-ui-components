@@ -11,18 +11,20 @@
   }
 </script>
 
-<div class="container {classes ?? ''}" data-pw={testId}>
-  <div class="text" hidden={text.length === 0}>{text}</div>
-  <label class="switch">
+<label class="container {classes ?? ''}" data-pw={testId}>
+  <span class="text" hidden={text.length === 0}>{text}</span>
+  <span class="switch">
     <input class="input-checkbox" type="checkbox" {checked} onclick={handleCheckboxClick} />
     <span class="slider round"></span>
-  </label>
-</div>
+  </span>
+</label>
 
 <style>
   .container {
     display: var(--toggle-container-display, flex);
+    width: var(--toggle-container-width, fit-content);
     align-items: var(--toggle-container-align-items, center);
+    justify-content: var(--toggle-container-justify-content, flex-start);
     gap: var(--toggle-container-gap, 8px);
   }
 

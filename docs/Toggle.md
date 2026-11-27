@@ -1,6 +1,6 @@
 # Toggle
 
-A labeled on/off switch with sliding ball animation. The `checked` prop controls the toggle state and the `onclick` event returns the new boolean state after toggling. The text label can be positioned relative to the switch using CSS order.
+A labeled on/off switch with sliding ball animation. The `checked` prop controls the toggle state and the `onclick` event returns the new boolean state after toggling. The text label can be positioned relative to the switch using CSS order, and is the switch's accessible name.
 
 ## Usage
 
@@ -35,6 +35,8 @@ Override these custom properties to theme the component.
 | ----------------------------------------- | ----------------- | ------------------ | ------------------------------------------------------------ |
 | `--toggle-container-display`              | `flex`            | display            | Display mode of the toggle container.                        |
 | `--toggle-container-align-items`          | `center`          | align-items        | Vertical alignment of switch and label.                      |
+| `--toggle-container-justify-content`      | `flex-start`      | justify-content    | Horizontal placement of label and switch; `space-between` puts them at opposite ends. |
+| `--toggle-container-width`               | `fit-content`     | width              | Width of the toggle; the whole width is clickable. `100%` with `space-between` makes a full-width row. |
 | `--toggle-container-gap`                  | `8px`             | gap                | Gap between the switch and label text.                       |
 | `--toggle-text-font-size`                 | `14px`            | font-size          | Font size of the label text.                                 |
 | `--toggle-text-font-weight`               | `400`             | font-weight        | Font weight of the label text.                               |
@@ -60,6 +62,10 @@ Override these custom properties to theme the component.
 | `--toggle-slider-focus-shadow`                   | `0 0 1px currentColor` | box-shadow    | Focus ring shadow shown when the switch is focused.          |
 | `--toggle-slider-border-radius`                  | `23px`            | border-radius      | Corner rounding of the slider track.                         |
 | `--toggle-slider-border-radius-before`           | `50%`             | border-radius      | Corner rounding of the ball/thumb.                           |
+
+## Accessibility
+
+- The root is a `<label>` wrapping the text and the switch, so `text` is announced as the switch's name and clicking the text flips the switch.
 
 ## Web Component
 
