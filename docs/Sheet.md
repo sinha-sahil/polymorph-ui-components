@@ -69,6 +69,7 @@ Override these custom properties to theme the component.
 | `--sheet-box-shadow`                    | `-2px 0 8px rgba(0, 0, 0, 0.15)` | box-shadow       | Shadow cast by the sheet panel.                                                                                                                                                      |
 | `--sheet-z-index`                       | `16`                             | z-index          | Z-index stacking order of the sheet panel itself.                                                                                                                                    |
 | `--sheet-border`                        | `none`                           | border           | Border on the edge of the sheet panel facing the page content. Applied as border-left (right side), border-right (left side), border-bottom (top side), or border-top (bottom side). |
+| `--sheet-header-display`                | `flex`                           | display          | Display of the header (title and close button). `none` hides it while `title` still names the dialog, for sheets that draw their own header. |
 | `--sheet-header-padding`                | `16px 20px`                      | padding          | Inner padding of the header area.                                                                                                                                                    |
 | `--sheet-header-gap`                    | `8px`                            | gap              | Space between the title and the close button.                                                                                                                                        |
 | `--sheet-header-background`             | `inherit`                        | background-color | Background color of the header area.                                                                                                                                                 |
@@ -103,6 +104,7 @@ Override these custom properties to theme the component.
 - Escape and Tab still work if focus has fallen out of the panel, for example after the focused element was removed: Escape closes and Tab brings focus back in.
 - Pressing the Escape key closes the sheet.
 - The close button is named by `closeLabel` (default `Close`).
+- The dialog is named by `title` (default `Sheet`). A sheet that draws its own header can pass `title` for the name and hide the built-in header with `--sheet-header-display: none`.
 - With `prefers-reduced-motion: reduce` the sheet opens and closes without sliding or fading.
 - The page scroll lock is shared with Modal, CommandMenu and Gallery: nested overlays keep the page locked until the last one closes, and the page's own inline `overflow` is restored afterwards.
 

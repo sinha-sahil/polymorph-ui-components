@@ -265,7 +265,7 @@
   }
 
   .sheet-header {
-    display: flex;
+    display: var(--sheet-header-display, flex);
     align-items: center;
     justify-content: flex-end;
     gap: var(--sheet-header-gap, 8px);

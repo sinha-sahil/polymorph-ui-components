@@ -102,6 +102,7 @@ Override these custom properties to theme the component.
 | `--button-box-shadow`                       | `none`                         | box-shadow         | Box shadow of the button.                                                                                 |
 | `--button-text-decoration`                  | `none`                         | text-decoration    | Text decoration of the label, e.g. `underline` for a link-styled button.                                  |
 | `--button-line-height`                      | `normal`                       | line-height        | Line height of the label. Useful when a link-styled button must sit on a text baseline.                   |
+| `--button-transition`                       | `none`                         | transition         | Transition of the button, e.g. `color 0.15s ease` for a hover fade.                                       |
 | `--button-disabled-cursor`                         | `not-allowed`                  | cursor             | Cursor shown when the button is disabled.                                                                 |
 | `--button-disabled-opacity`                        | `0.4`                          | opacity            | Opacity when the button is disabled.                                                                      |
 | `--button-disabled-text-color`                     | `-`                            | color              | Text color when the button is disabled.                                                                   |

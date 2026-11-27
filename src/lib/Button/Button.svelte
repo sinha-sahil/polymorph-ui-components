@@ -104,6 +104,7 @@
     box-shadow: var(--button-box-shadow, none);
     text-decoration: var(--button-text-decoration, none);
     line-height: var(--button-line-height, normal);
+    transition: var(--button-transition, none);
   }
 
   .disabled {

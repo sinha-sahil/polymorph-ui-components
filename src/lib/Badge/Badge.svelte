@@ -49,5 +49,7 @@
     object-fit: var(--badge-object-fit, contain);
     box-shadow: var(--badge-img-icon-shadow, 0 0 0 0.5px currentColor);
     background-color: var(--badge-img-background-color);
+    filter: var(--badge-img-filter, none);
+    opacity: var(--badge-img-opacity, 1);
   }
 </style>

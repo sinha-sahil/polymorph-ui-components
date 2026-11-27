@@ -48,6 +48,8 @@ Override these custom properties to theme the component.
 | `--badge-object-fit`           | `contain`               | object-fit       | Object-fit of the main icon image.                |
 | `--badge-img-icon-shadow`      | `0 0 0 0.5px currentColor` | box-shadow    | Box shadow of the main icon image.                |
 | `--badge-img-background-color` | `-`                     | background-color | Background color behind the main icon image.      |
+| `--badge-img-filter`           | `none`                  | filter           | CSS filter on the main icon image.                |
+| `--badge-img-opacity`          | `1`                     | opacity          | Opacity of the main icon image.                   |
 
 ## Web Component
 
